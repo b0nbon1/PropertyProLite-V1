@@ -1,0 +1,22 @@
+{
+  "name": "propertyprolite-v1",
+  "version": "1.0.0",
+  "description": "Property Pro Lite is a platform where people can create and/or search properties for sale or rent.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/b0nbon1/PropertyProLite-V1.git"
+  },
+  "keywords": [
+    "Property-Pro-Lite"
+  ],
+  "author": "Bonvic Bundi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/b0nbon1/PropertyProLite-V1/issues"
+  },
+  "homepage": "https://github.com/b0nbon1/PropertyProLite-V1#readme"
+}
