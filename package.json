@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/b0nbon1/PropertyProLite-V1/issues"
   },
-  "homepage": "https://github.com/b0nbon1/PropertyProLite-V1#readme"
+  "homepage": "https://github.com/b0nbon1/PropertyProLite-V1#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
