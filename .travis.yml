@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - stable
+git:
+  depth:       3
+cache: npm
+install: npm install
+directories:
+  - node_modules
+script:
+  - npm run test
+after_success:
+  - npm run coveralls
+notifications:
+  email:       false
