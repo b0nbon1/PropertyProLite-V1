@@ -22,7 +22,7 @@ module.exports = {
     "no-restricted-syntax": ["error"],
     "quotes": ["error", "single", { "allowTemplateLiterals": true }],
     "implicit-arrow-linebreak": 0,
-    "linebreak-style": ["error", "windows"],
+    "linebreak-style": ["error", "unix"],
     "consistent-return": 0,
     "no-unused-vars": [
     "error", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }
