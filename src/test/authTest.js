@@ -13,6 +13,7 @@ describe('Authentication', () => {
                     firstname: 'bonbon',
                     lastname: 'vic',
                     email: 'bonbo@test.com',
+                    phoneNumber: '+254742087558',
                     address: 'kenya',
                     password: 'f5e4xhr43dh4t',
                 })
@@ -31,13 +32,14 @@ describe('Authentication', () => {
                     firstname: '',
                     lastname: 'vic',
                     email: 'bonbon@tes.com',
+                    phoneNumber: '+254742087558',
                     address: 'kenya',
                     password: 'ftdtfr5e4xh4t',
                 })
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
-                    res.body.message.should.equal('make sure all fields are filled');
+                    res.body.message.should.equal('Please fill all the fields');
                     if (err) return done();
                     done();
                 });
@@ -49,13 +51,14 @@ describe('Authentication', () => {
                     firstname: 'bonbon',
                     lastname: '',
                     email: 'bonbon@tes.com',
+                    phoneNumber: '+254742087558',
                     address: 'kenya',
                     password: 'ftdtfr5e4xhr4t',
                 })
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
-                    res.body.message.should.equal('make sure all fields are filled');
+                    res.body.message.should.equal('Please fill all the fields');
                     if (err) return done();
                     done();
                 });
@@ -67,13 +70,14 @@ describe('Authentication', () => {
                     firstname: 'bonbon',
                     lastname: 'vic',
                     email: '',
+                    phoneNumber: '+254742087558',
                     address: 'kenya',
                     password: 'ftdtfr5e4xhr44t',
                 })
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
-                    res.body.message.should.equal('make sure all fields are filled');
+                    res.body.message.should.equal('Please fill all the fields');
                     if (err) return done();
                     done();
                 });
@@ -85,13 +89,52 @@ describe('Authentication', () => {
                     firstname: 'bonbon',
                     lastname: 'vic',
                     email: 'bonbon@tst.com',
+                    phoneNumber: '+254742087558',
                     address: '',
                     password: 'ftdtfr5e4xhr4t',
                 })
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
-                    res.body.message.should.equal('make sure all fields are filled');
+                    res.body.message.should.equal('Please fill all the fields');
+                    if (err) return done();
+                    done();
+                });
+        });
+        it('should check user phone Number', (done) => {
+            chai.request(app)
+                .post('/api/v1/register')
+                .send({
+                    firstname: 'bonbon',
+                    lastname: 'vic',
+                    email: 'bonbon@tst.com',
+                    phoneNumber: '',
+                    address: 'nairobi, kenya',
+                    password: 'ftdtfr5e4xhr4t',
+                })
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('Please fill all the fields');
+                    if (err) return done();
+                    done();
+                });
+        });
+        it('should check invalid user phone Number', (done) => {
+            chai.request(app)
+                .post('/api/v1/register')
+                .send({
+                    firstname: 'bonbon',
+                    lastname: 'vic',
+                    email: 'bonbon@tst.com',
+                    phoneNumber: '45478',
+                    address: 'nairobi, kenya',
+                    password: 'ftdtfr5e4xhr4t',
+                })
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('Enter valid phone Number');
                     if (err) return done();
                     done();
                 });
@@ -103,13 +146,14 @@ describe('Authentication', () => {
                     firstname: 'bonbon',
                     lastname: 'vic',
                     email: 'bobon@test.com',
+                    phoneNumber: '+254742087558',
                     address: 'kenya',
                     password: '',
                 })
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
-                    res.body.message.should.equal('make sure all fields are filled');
+                    res.body.message.should.equal('Please fill all the fields');
                     if (err) return done();
                     done();
                 });
@@ -121,12 +165,14 @@ describe('Authentication', () => {
                     firstname: 'bonbon',
                     lastname: 'vic',
                     email: 'bonon@test.com',
+                    phoneNumber: '+254742087558',
                     address: 'kenya',
                     password: 'ftdr',
                 })
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
+                    res.body.message.should.equal('enter valid password. should be 6 character and more and contain letters and numbers');
                     if (err) return done();
                     done();
                 });
@@ -138,13 +184,14 @@ describe('Authentication', () => {
                     firstname: 'b&',
                     lastname: 'vic',
                     email: 'bonon@test.com',
+                    phoneNumber: '+254742087558',
                     address: 'kenya',
                     password: 'ftdr',
                 })
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
-                    res.body.message.should.equal('invalid first name');
+                    res.body.message.should.equal('enter valid firstname');
                     if (err) return done();
                     done();
                 });
@@ -156,13 +203,14 @@ describe('Authentication', () => {
                     firstname: 'bonbon',
                     lastname: 'v%',
                     email: 'bonon@test.com',
+                    phoneNumber: '+254742087558',
                     address: 'kenya',
                     password: 'ftdr',
                 })
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
-                    res.body.message.should.equal('invalid last name');
+                    res.body.message.should.equal('enter valid lastname');
                     if (err) return done();
                     done();
                 });
@@ -172,15 +220,16 @@ describe('Authentication', () => {
                 .post('/api/v1/register')
                 .send({
                     firstname: 'bonbon',
-                    lastname: 'v%',
+                    lastname: 'vicker',
                     email: 'bcom',
+                    phoneNumber: '+254742087558',
                     address: 'kenya',
-                    password: 'ftdr',
+                    password: 'ftdrgtytr5445',
                 })
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
-                    res.body.message.should.equal('invalid email');
+                    res.body.message.should.equal('enter valid email e.g user@gmail.com');
                     if (err) return done();
                     done();
                 });
@@ -191,7 +240,8 @@ describe('Authentication', () => {
                 .send({
                     firstname: 'bonbon',
                     lastname: 'vic',
-                    email: 'bonbon@test.com',
+                    email: 'bonbov@test.com',
+                    phoneNumber: '+254742087558',
                     address: 'kenya',
                     password: 'ftdtfr5e4x4t',
                 })
