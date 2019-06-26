@@ -12,6 +12,8 @@
     "exclude": [
       "**/test/**",
       "**/database/**",
+      "**/Model.js",
+      "**/helpers/**",
       "build"
     ]
   },
@@ -29,6 +31,7 @@
   },
   "homepage": "https://github.com/b0nbon1/PropertyProLite-V1#readme",
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.0.0",
