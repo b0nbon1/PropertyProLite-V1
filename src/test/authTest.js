@@ -240,7 +240,7 @@ describe('Authentication', () => {
                 .send({
                     firstname: 'bonbon',
                     lastname: 'vic',
-                    email: 'bonbov@test.com',
+                    email: 'bonbo@test.com',
                     phoneNumber: '+254742087558',
                     address: 'kenya',
                     password: 'ftdtfr5e4x4t',
@@ -249,6 +249,83 @@ describe('Authentication', () => {
                     res.should.have.status(409);
                     res.body.should.be.a('object');
                     res.body.message.should.equal('email account exists');
+                    if (err) return done();
+                    done();
+                });
+        });
+    });
+    describe('Login', () => {
+        it('should Login user successfully', (done) => {
+            chai.request(app)
+                .post('/api/v1/login')
+                .send({
+                    email: 'bonbo@test.com',
+                    password: 'f5e4xhr43dh4t',
+                })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('successfully logged in');
+                    if (err) return done();
+                    done();
+                });
+        });
+        it('should check user email', (done) => {
+            chai.request(app)
+                .post('/api/v1/login')
+                .send({
+                    email: '',
+                    password: 'ftdtfr5e4x4t',
+                })
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('Enter all fields');
+                    if (err) return done();
+                    done();
+                });
+        });
+        it('should check user password', (done) => {
+            chai.request(app)
+                .post('/api/v1/login')
+                .send({
+                    email: 'bonhdfsd@test.com',
+                    password: '',
+                })
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('Enter all fields');
+                    if (err) return done();
+                    done();
+                });
+        });
+        it('should confirm if user exists', (done) => {
+            chai.request(app)
+                .post('/api/v1/login')
+                .send({
+                    email: 'bonhdfsd@test.com',
+                    password: 'ftdtfr5e4x4t',
+                })
+                .end((err, res) => {
+                    res.should.have.status(404);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('User does not exists');
+                    if (err) return done();
+                    done();
+                });
+        });
+        it('should check if the password matches', (done) => {
+            chai.request(app)
+                .post('/api/v1/login')
+                .send({
+                    email: 'bonbo@test.com',
+                    password: 'ftdtfr5u6g',
+                })
+                .end((err, res) => {
+                    res.should.have.status(401);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('wrong password!');
                     if (err) return done();
                     done();
                 });
