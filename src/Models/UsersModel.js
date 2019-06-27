@@ -11,4 +11,14 @@ export default class User extends Model {
         }
         return false;
     }
+
+    async login() {
+        const user = this.payload;
+        const obj = db.find(o => o.email === user);
+        if (!obj) {
+            return false;
+        }
+        this.result = obj;
+        return true;
+    }
 }
