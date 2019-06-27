@@ -280,7 +280,7 @@ describe('Authentication', () => {
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
-                    res.body.message.should.equal('Enter all fields');
+                    res.body.message.should.equal('Please fill all the fields');
                     if (err) return done();
                     done();
                 });
@@ -295,7 +295,7 @@ describe('Authentication', () => {
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
-                    res.body.message.should.equal('Enter all fields');
+                    res.body.message.should.equal('Please fill all the fields');
                     if (err) return done();
                     done();
                 });
@@ -310,7 +310,7 @@ describe('Authentication', () => {
                 .end((err, res) => {
                     res.should.have.status(404);
                     res.body.should.be.a('object');
-                    res.body.message.should.equal('User does not exists');
+                    res.body.message.should.equal('User is not registered. Sign up to create account');
                     if (err) return done();
                     done();
                 });
