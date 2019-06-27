@@ -285,6 +285,21 @@ describe('Authentication', () => {
                     done();
                 });
         });
+        it('should check all fields present', (done) => {
+            chai.request(app)
+                .post('/api/v1/login')
+                .send({
+                    email: '',
+                    password: '',
+                })
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('Please fill all the fields');
+                    if (err) return done();
+                    done();
+                });
+        });
         it('should check user password', (done) => {
             chai.request(app)
                 .post('/api/v1/login')
