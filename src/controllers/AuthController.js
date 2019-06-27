@@ -4,6 +4,9 @@ import Uid from '../utils/helpers/Ids';
 import User from '../Models/UsersModel';
 import Res from '../utils/helpers/responses';
 
+const isAdmin = false;
+const id = Uid(userId);
+
 export default class Authentication {
     static async register(req, res) {
         try {
@@ -16,8 +19,6 @@ export default class Authentication {
                 password,
             } = req.body;
             const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
-            const isAdmin = false;
-            const id = Uid(userId);
             const newUser = new User({
                 id,
                 email,
@@ -28,11 +29,27 @@ export default class Authentication {
                 address,
                 isAdmin,
             });
-            if (!await newUser.register()) {
-                return Res.handleError(409, 'email account exists', res);
+            if (!await newUser.register()) return Res.handleError(409, 'email account exists', res);
+            return Res.handleSuccess(201, 'successfully created account', newUser.result, res);
+        } catch (err) {
+            return Res.handleError(500, err.toString(), res);
+        }
+    }
+
+    static async loginUser(req, res) {
+        try {
+            const {
+                email,
+                password,
+            } = req.body;
+            const checkUser = new User(email);
+            if (await checkUser.login()) {
+                if (bcrypt.compareSync(password, checkUser.result.password)) {
+                    return Res.handleSuccess(200, 'successfully logged in', checkUser.result, res);
+                }
+                return Res.handleError(401, 'wrong password!', res);
             }
-            // console.log(newUser.register());
-            return Res.handleAuth(201, 'successfully created account', newUser.result, res);
+            return Res.handleError(404, 'User is not registered. Sign up to create account', res);
         } catch (err) {
             return Res.handleError(500, err.toString(), res);
         }
