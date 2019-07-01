@@ -3,6 +3,7 @@ import userId from '../../database/Users';
 import Uid from '../utils/helpers/Ids';
 import User from '../Models/UsersModel';
 import Res from '../utils/helpers/responses';
+import Token from '../utils/helpers/jwt';
 
 const isAdmin = false;
 const id = Uid(userId);
@@ -29,8 +30,9 @@ export default class Authentication {
                 address,
                 isAdmin,
             });
+            const token = await Token.newToken({ email, id });
             if (!await newUser.register()) return Res.handleError(409, 'email account exists', res);
-            return Res.handleSuccess(201, 'successfully created account', newUser.result, res);
+            return Res.handleAuthSuccess(201, 'successfully created account', token, newUser.result, res);
         } catch (err) {
             return Res.handleError(500, err.toString(), res);
         }
@@ -45,7 +47,9 @@ export default class Authentication {
             const checkUser = new User(email);
             if (await checkUser.login()) {
                 if (bcrypt.compareSync(password, checkUser.result.password)) {
-                    return Res.handleSuccess(200, 'successfully logged in', checkUser.result, res);
+                    const { id, email } = checkUser.result;
+                    const token = await Token.newToken({ email, id });
+                    return Res.handleAuthSuccess(200, 'successfully logged in', token, checkUser.result, res);
                 }
                 return Res.handleError(401, 'wrong password!', res);
             }
