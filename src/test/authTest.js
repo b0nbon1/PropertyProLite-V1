@@ -20,6 +20,7 @@ describe('Authentication', () => {
                 .end((err, res) => {
                     res.should.have.status(201);
                     res.body.should.be.a('object');
+                    res.body.should.have.property('token');
                     res.body.message.should.equal('successfully created account');
                     if (err) return done();
                     done();
@@ -265,6 +266,7 @@ describe('Authentication', () => {
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
+                    res.body.should.have.property('token');
                     res.body.message.should.equal('successfully logged in');
                     if (err) return done();
                     done();
