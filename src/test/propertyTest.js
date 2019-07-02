@@ -2,10 +2,45 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../app';
 
+let token;
+
 chai.use(chaiHttp);
 chai.should();
 describe('Property', () => {
+    before('generate JWT', (done) => {
+        chai.request(app)
+            .post('/api/v1/login')
+            .send({
+                email: 'bonbo@test.com',
+                password: 'f5e4xhr43dh4t',
+            })
+            .end((err, res) => {
+                // eslint-disable-next-line prefer-destructuring
+                token = res.body.token;
+                if (err) return done();
+                done();
+            });
+    });
     describe('Create new advert', () => {
+        it('should check if token available', (done) => {
+            chai.request(app)
+                .post('/api/v1/property')
+                .send({
+                    price: 400,
+                    state: 'Kenya',
+                    city: 'Nairobi',
+                    type: 'one bedroom',
+                    address: 'kenya, 5th street',
+                    imageUrl: 'https://user-images.githubusercontent.com/46062609/60184047-08807800-9830-11e9-913c-cb55d650f858.PNG',
+                })
+                .end((err, res) => {
+                    res.should.have.status(403);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('Token required');
+                    if (err) return done();
+                    done();
+                });
+        });
         it('should create new ad successfully', (done) => {
             chai.request(app)
                 .post('/api/v1/property')
@@ -15,8 +50,9 @@ describe('Property', () => {
                     city: 'Nairobi',
                     type: 'one bedroom',
                     address: 'kenya, 5th street',
-                    image_url: 'https://user-images.githubusercontent.com/46062609/60184047-08807800-9830-11e9-913c-cb55d650f858.PNG',
+                    imageUrl: 'https://user-images.githubusercontent.com/46062609/60184047-08807800-9830-11e9-913c-cb55d650f858.PNG',
                 })
+                .set('authorization', `Bearer ${token}`)
                 .end((err, res) => {
                     res.should.have.status(201);
                     res.body.should.be.a('object');
@@ -34,8 +70,9 @@ describe('Property', () => {
                     city: 'Nairobi',
                     type: 'one bedroom',
                     address: 'kenya, 5th street',
-                    image_url: 'https://user-images.githubusercontent.com/46062609/60184047-08807800-9830-11e9-913c-cb55d650f858.PNG',
+                    imageUrl: 'https://user-images.githubusercontent.com/46062609/60184047-08807800-9830-11e9-913c-cb55d650f858.PNG',
                 })
+                .set('authorization', `Bearer ${token}`)
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
@@ -53,8 +90,9 @@ describe('Property', () => {
                     city: 'Nairobi',
                     type: 'one bedroom',
                     address: 'kenya, 5th street',
-                    image_url: 'https://user-images.githubusercontent.com/46062609/60184047-08807800-9830-11e9-913c-cb55d650f858.PNG',
+                    imageUrl: 'https://user-images.githubusercontent.com/46062609/60184047-08807800-9830-11e9-913c-cb55d650f858.PNG',
                 })
+                .set('authorization', `Bearer ${token}`)
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
@@ -72,8 +110,9 @@ describe('Property', () => {
                     city: '',
                     type: 'one bedroom',
                     address: 'kenya, 5th street',
-                    image_url: 'https://user-images.githubusercontent.com/46062609/60184047-08807800-9830-11e9-913c-cb55d650f858.PNG',
+                    imageUrl: 'https://user-images.githubusercontent.com/46062609/60184047-08807800-9830-11e9-913c-cb55d650f858.PNG',
                 })
+                .set('authorization', `Bearer ${token}`)
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
@@ -91,8 +130,9 @@ describe('Property', () => {
                     city: 'Nairobi',
                     type: '',
                     address: 'kenya, 5th street',
-                    image_url: 'https://user-images.githubusercontent.com/46062609/60184047-08807800-9830-11e9-913c-cb55d650f858.PNG',
+                    imageUrl: 'https://user-images.githubusercontent.com/46062609/60184047-08807800-9830-11e9-913c-cb55d650f858.PNG',
                 })
+                .set('authorization', `Bearer ${token}`)
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
@@ -110,8 +150,9 @@ describe('Property', () => {
                     city: 'Nairobi',
                     type: 'one bedroom',
                     address: '',
-                    image_url: 'https://user-images.githubusercontent.com/46062609/60184047-08807800-9830-11e9-913c-cb55d650f858.PNG',
+                    imageUrl: 'https://user-images.githubusercontent.com/46062609/60184047-08807800-9830-11e9-913c-cb55d650f858.PNG',
                 })
+                .set('authorization', `Bearer ${token}`)
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
@@ -129,8 +170,9 @@ describe('Property', () => {
                     city: 'Nairobi',
                     type: 'one bedroom',
                     address: '5th street down',
-                    image_url: 'https://user-images.githubusercontent.com/46062609/60184047-08807800-9830-11e9-913c-cb55d650f858.PNG',
+                    imageUrl: 'https://user-images.githubusercontent.com/46062609/60184047-08807800-9830-11e9-913c-cb55d650f858.PNG',
                 })
+                .set('authorization', `Bearer ${token}`)
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
@@ -148,8 +190,9 @@ describe('Property', () => {
                     city: 'Nairobi',
                     type: 'one bedroom',
                     address: '5th street',
-                    image_url: 'https://user-images.githubusercontent.com/46062609/60184047-08807800-9830-11e9-913c-cb55d650f858.PNG',
+                    imageUrl: 'https://user-images.githubusercontent.com/46062609/60184047-08807800-9830-11e9-913c-cb55d650f858.PNG',
                 })
+                .set('authorization', `Bearer ${token}`)
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
@@ -167,8 +210,9 @@ describe('Property', () => {
                     city: 'N@$',
                     type: 'one bedroom',
                     address: '5th street',
-                    image_url: 'https://user-images.githubusercontent.com/46062609/60184047-08807800-9830-11e9-913c-cb55d650f858.PNG',
+                    imageUrl: 'https://user-images.githubusercontent.com/46062609/60184047-08807800-9830-11e9-913c-cb55d650f858.PNG',
                 })
+                .set('authorization', `Bearer ${token}`)
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
@@ -184,10 +228,11 @@ describe('Property', () => {
                     price: 400,
                     state: 'Kenya',
                     city: 'Nairobi',
-                    type: 'one',
+                    type: 'one%#%6',
                     address: '5th street',
-                    image_url: 'https://user-images.githubusercontent.com/46062609/60184047-08807800-9830-11e9-913c-cb55d650f858.PNG',
+                    imageUrl: 'https://user-images.githubusercontent.com/46062609/60184047-08807800-9830-11e9-913c-cb55d650f858.PNG',
                 })
+                .set('authorization', `Bearer ${token}`)
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
@@ -205,12 +250,13 @@ describe('Property', () => {
                     city: 'Nairobi',
                     type: 'one bedroom',
                     address: '5th&%$#',
-                    image_url: 'https://user-images.githubusercontent.com/46062609/60184047-08807800-9830-11e9-913c-cb55d650f858.PNG',
+                    imageUrl: 'https://user-images.githubusercontent.com/46062609/60184047-08807800-9830-11e9-913c-cb55d650f858.PNG',
                 })
+                .set('authorization', `Bearer ${token}`)
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
-                    res.body.message.should.equal('Please enter a valid type of property');
+                    res.body.message.should.equal('Please enter a valid address of property');
                     if (err) return done();
                     done();
                 });
