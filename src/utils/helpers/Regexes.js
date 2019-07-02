@@ -7,7 +7,7 @@ export default class Regex {
     }
 
     static addressCheck(address) {
-        re = /[a-zA-Z]{3,}_*[0-9_]*[a-zA-Z]*_*/;
+        re = /^[a-zA-Z0-9\s,'-]*$/;
         if (!re.test(address)) return true;
         return false;
     }
@@ -27,6 +27,18 @@ export default class Regex {
     static passCheck(password) {
         re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
         if (!re.test(password)) return true;
+        return false;
+    }
+
+    static floatCheck(float) {
+        re = /^[+-]?\d+(\.\d+)?$/;
+        if (!re.test(float)) return true;
+        return false;
+    }
+
+    static typeCheck(float) {
+        re = /^[a-zA-Z0-9\s'-]*$/;
+        if (!re.test(float)) return true;
         return false;
     }
 }
