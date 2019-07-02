@@ -4,7 +4,7 @@ import Validation from '../utils/middleware/validators';
 
 const route = express.Router();
 
-route.post('/register', Validation.validateUser, Authentication.register);
-route.post('/login', Validation.validateLogin, Authentication.loginUser);
+route.post('/register', Validation.user, Authentication.register);
+route.post('/login', Validation.login, Authentication.loginUser);
 
 export default route;

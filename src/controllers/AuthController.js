@@ -6,7 +6,6 @@ import Res from '../utils/helpers/responses';
 import Token from '../utils/helpers/jwt';
 
 const isAdmin = false;
-const id = Uid(userId);
 
 export default class Authentication {
     static async register(req, res) {
@@ -20,6 +19,7 @@ export default class Authentication {
                 password,
             } = req.body;
             const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
+            const id = Uid(userId);
             const newUser = new User({
                 id,
                 email,
