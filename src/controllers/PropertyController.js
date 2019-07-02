@@ -37,7 +37,7 @@ export default class Property {
                 id, status, price, state, city, address, type, imageUrl,
             });
             await newProperty.update();
-            return Res.handleSuccess(200, 'successfully created an advert', newProperty.result, res);
+            return Res.handleSuccess(200, 'successfully updated advert', newProperty.result, res);
         } catch (err) {
             return Res.handleError(500, err.toString(), res);
         }
