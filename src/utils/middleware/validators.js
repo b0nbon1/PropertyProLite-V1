@@ -1,8 +1,9 @@
 import Res from '../helpers/responses';
 import Regex from '../helpers/Regexes';
+import Advert from '../../Models/PropertyModel';
 
 export default class Validations {
-    static async validateUser(req, res, next) {
+    static async user(req, res, next) {
         try {
             const {
                 firstname,
@@ -27,7 +28,7 @@ export default class Validations {
         }
     }
 
-    static async validateLogin(req, res, next) {
+    static async login(req, res, next) {
         try {
             const {
                 email,
@@ -45,7 +46,7 @@ export default class Validations {
         }
     }
 
-    static async validateProperty(req, res, next) {
+    static async property(req, res, next) {
         try {
             const {
                 price, state, city, address, type,
@@ -59,6 +60,24 @@ export default class Validations {
             if (await Regex.nameCheck(city)) return Res.handleError(400, 'Please enter valid city', res);
             if (await Regex.addressCheck(address)) return Res.handleError(400, 'Please enter a valid address of property', res);
             if (await Regex.typeCheck(type)) return Res.handleError(400, 'Please enter a valid type of property', res);
+            next();
+        } catch (error) {
+            return Res.handleError(500, error.toString(), res);
+        }
+    }
+
+    static async update(req, res, next) {
+        try {
+            const {
+                price, state, city, address, type,
+            } = req.body;
+            const owner = await res.locals.user;
+            if (!await Advert.checkUser(req.params.property_id, owner.id)) return Res.handleError(406, 'None of the ads with such id belongs to you', res);
+            if (price && await Regex.floatCheck(price)) return Res.handleError(400, 'Price should be a number', res);
+            if (state && await Regex.nameCheck(state)) return Res.handleError(400, 'Please enter valid State', res);
+            if (city && await Regex.nameCheck(city)) return Res.handleError(400, 'Please enter valid city', res);
+            if (address && await Regex.addressCheck(address)) return Res.handleError(400, 'Please enter a valid address of property', res);
+            if (type && await Regex.typeCheck(type)) return Res.handleError(400, 'Please enter a valid type of property', res);
             next();
         } catch (error) {
             return Res.handleError(500, error.toString(), res);
