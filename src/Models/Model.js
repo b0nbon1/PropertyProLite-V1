@@ -8,4 +8,10 @@ export default class Model {
         db.push(obj);
         this.result = obj;
     }
+
+    async updateDb(db, obj, id) {
+        const i = id - 1;
+        this.result = db.splice(i, 1, Object.assign(db[i], obj));
+        // console.log(db.splice(i, 1, Object.assign(db[i], obj)));
+    }
 }
