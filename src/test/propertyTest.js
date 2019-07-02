@@ -5,6 +5,7 @@ import chaiHttp from 'chai-http';
 import app from '../../app';
 
 let token, wrongUser;
+const wrongToken = '654gyujy5ygre';
 
 chai.use(chaiHttp);
 chai.should();
@@ -57,6 +58,24 @@ describe('Property', () => {
                     res.should.have.status(403);
                     res.body.should.be.a('object');
                     res.body.message.should.equal('Token required');
+                    if (err) return done();
+                    done();
+                });
+        });
+        it('should check if token is valid', (done) => {
+            chai.request(app)
+                .post('/api/v1/property')
+                .send({
+                    price: 400,
+                    state: 'Kenya',
+                    city: 'Nairobi',
+                    type: 'one bedroom',
+                    address: 'kenya, 5th street',
+                    imageUrl: 'https://user-images.githubusercontent.com/46062609/60184047-08807800-9830-11e9-913c-cb55d650f858.PNG',
+                })
+                .set('authorization', `Bearer ${wrongToken}`)
+                .end((err, res) => {
+                    res.should.have.status(403);
                     if (err) return done();
                     done();
                 });
@@ -285,7 +304,7 @@ describe('Property', () => {
     describe('Update advert', () => {
         it('should update advert successfully', (done) => {
             chai.request(app)
-                .post('/api/v1/property/1')
+                .patch('/api/v1/property/1')
                 .send({
                     price: 600,
                     state: 'Rwanda',
@@ -298,14 +317,14 @@ describe('Property', () => {
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
-                    res.body.message.should.equal('Please enter a valid address of property');
+                    res.body.message.should.equal('successfully updated advert');
                     if (err) return done();
                     done();
                 });
         });
-        it('should owner of the post should update his/her own posts', (done) => {
+        it('should update his/her own posts', (done) => {
             chai.request(app)
-                .post('/api/v1/property/1')
+                .patch('/api/v1/property/1')
                 .send({
                     price: 600,
                     state: 'Rwanda',
@@ -323,42 +342,9 @@ describe('Property', () => {
                     done();
                 });
         });
-        it('should update existing post', (done) => {
-            chai.request(app)
-                .post('/api/v1/property/20')
-                .send({
-                    price: 600,
-                    state: 'Rwanda',
-                    city: 'Kigali',
-                    type: 'two bedroom',
-                    address: '5th street',
-                    imageUrl: 'https://user-images.githubusercontent.com/46062609/60184047-08807800-9830-11e9-913c-cb55d650f858.PNG',
-                })
-                .set('authorization', `Bearer ${token}`)
-                .end((err, res) => {
-                    res.should.have.status(404);
-                    res.body.should.be.a('object');
-                    res.body.message.should.equal('This advert post does not exist');
-                    if (err) return done();
-                    done();
-                });
-        });
-        it('should not update with no data', (done) => {
-            chai.request(app)
-                .post('/api/v1/property/1')
-                .send({})
-                .set('authorization', `Bearer ${token}`)
-                .end((err, res) => {
-                    res.should.have.status(400);
-                    res.body.should.be.a('object');
-                    res.body.message.should.equal('Please update ad with some data');
-                    if (err) return done();
-                    done();
-                });
-        });
         it('should property should have Valid price', (done) => {
             chai.request(app)
-                .post('/api/v1/property/1')
+                .patch('/api/v1/property/1')
                 .send({
                     price: 't#',
                 })
@@ -373,7 +359,7 @@ describe('Property', () => {
         });
         it('should property should have a valid State', (done) => {
             chai.request(app)
-                .post('/api/v1/property/1')
+                .patch('/api/v1/property/1')
                 .send({
                     state: 'K@',
                 })
@@ -388,7 +374,7 @@ describe('Property', () => {
         });
         it('should property should have a valid city name', (done) => {
             chai.request(app)
-                .post('/api/v1/property/1')
+                .patch('/api/v1/property/1')
                 .send({
                     city: 'N@$',
                 })
@@ -403,7 +389,7 @@ describe('Property', () => {
         });
         it('should property should have a valid type that exists', (done) => {
             chai.request(app)
-                .post('/api/v1/property/1')
+                .patch('/api/v1/property/1')
                 .send({
                     type: 'one%#%6',
                 })
@@ -418,7 +404,7 @@ describe('Property', () => {
         });
         it('should property should have a valid address', (done) => {
             chai.request(app)
-                .post('/api/v1/property/1')
+                .patch('/api/v1/property/1')
                 .send({
                     address: '5th&%$#',
                 })
