@@ -431,4 +431,28 @@ describe('Property', () => {
                 });
         });
     });
+    describe('get specific adverts', () => {
+        it('should get specific advert successfully', (done) => {
+            chai.request(app)
+                .get('/api/v1/property/1')
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('got property successfully');
+                    if (err) return done();
+                    done();
+                });
+        });
+        it('should find the property with the id', (done) => {
+            chai.request(app)
+                .get('/api/v1/property/14')
+                .end((err, res) => {
+                    res.should.have.status(404);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('Property with such id does not exists');
+                    if (err) return done();
+                    done();
+                });
+        });
+    });
 });

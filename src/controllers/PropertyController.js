@@ -45,8 +45,19 @@ export default class Property {
 
     static async getAll(req, res) {
         try {
-            const data = await PropertyModel.getAll();
+            const data = await PropertyModel.findAll();
             return Res.handleSuccess(200, 'got all properties successfully', data, res);
+        } catch (err) {
+            return Res.handleError(500, err.toString(), res);
+        }
+    }
+
+    static async getOne(req, res) {
+        try {
+            const id = parseInt(req.params.property_id, 10);
+            const property = new PropertyModel(id);
+            if (await property.findOne()) return Res.handleSuccess(200, 'got property successfully', property.result, res);
+            return Res.handleError(404, 'Property with such id does not exists', res);
         } catch (err) {
             return Res.handleError(500, err.toString(), res);
         }
