@@ -75,4 +75,18 @@ export default class Property {
             return Res.handleError(500, err.toString(), res);
         }
     }
+
+    static async delProperty(req, res) {
+        try {
+            const id = parseInt(req.params.property_id, 10);
+            const owner = res.locals.user;
+            if (!await PropertyModel.checkUser(id, owner)) return Res.handleError(406, 'None of the ads with such id belongs to you', res);
+            const property = new PropertyModel(id);
+            await property.del();
+            // nextline handleError works as handleSuccess
+            return Res.handleError(200, 'delete property successfully', res);
+        } catch (err) {
+            return Res.handleError(500, err.toString(), res);
+        }
+    }
 }
