@@ -1,5 +1,6 @@
 
 import propertyId from '../../database/Property';
+import reportId from '../../database/report';
 import date from '../utils/helpers/dates';
 import Uid from '../utils/helpers/Ids';
 import PropertyModel from '../Models/PropertyModel';
@@ -96,6 +97,25 @@ export default class Property {
             const property = new PropertyModel(type);
             if (!await property.getType()) return Res.handleError(404, 'adverts with this type does not exists', res);
             return Res.handleSuccess(200, 'got specific type Successful', property.result, res);
+        } catch (err) {
+            return Res.handleError(500, err.toString(), res);
+        }
+    }
+
+    static async report(req, res) {
+        try {
+            const {
+                reason, description,
+            } = req.body;
+            const id = Uid(reportId);
+            // eslint-disable-next-line no-shadow
+            const propertyId = parseInt(req.params.property_id, 10);
+            const createdOn = date();
+            const property = new PropertyModel({
+                reason, description, id, createdOn, propertyId,
+            });
+            if (!await property.report()) return Res.handleError(404, 'Property with such id does not exists', res);
+            return Res.handleSuccess(201, 'successfully created a report', property.result, res);
         } catch (err) {
             return Res.handleError(500, err.toString(), res);
         }
