@@ -33,4 +33,8 @@ export default class Property extends Model {
         }
         return false;
     }
+
+    async del() {
+        this.deleteDb(db, this.payload);
+    }
 }
