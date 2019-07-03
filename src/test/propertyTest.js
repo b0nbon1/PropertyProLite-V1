@@ -495,7 +495,7 @@ describe('Property', () => {
     describe('Delete property', () => {
         it('should delete his/her own posts', (done) => {
             chai.request(app)
-                .delete('/api/v1/property/1/sold')
+                .delete('/api/v1/property/1')
                 .set('authorization', `Bearer ${wrongUser}`)
                 .end((err, res) => {
                     res.should.have.status(406);
@@ -513,6 +513,17 @@ describe('Property', () => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.message.should.equal('delete property successfully');
+                    if (err) return done();
+                    done();
+                });
+        });
+        it('confirm the advert is deleted', (done) => {
+            chai.request(app)
+                .get('/api/v1/property/14')
+                .end((err, res) => {
+                    res.should.have.status(404);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('Property with such id does not exists');
                     if (err) return done();
                     done();
                 });
