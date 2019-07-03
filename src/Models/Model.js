@@ -12,6 +12,10 @@ export default class Model {
     async updateDb(db, obj, id) {
         const i = id - 1;
         this.result = db.splice(i, 1, Object.assign(db[i], obj));
-        // console.log(db.splice(i, 1, Object.assign(db[i], obj)));
+    }
+
+    async deleteDb(db, id) {
+        const i = id - 1;
+        this.result = db.splice(i, 1);
     }
 }
