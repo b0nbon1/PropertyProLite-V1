@@ -71,8 +71,8 @@ export default class Validations {
             const {
                 price, state, city, address, type,
             } = req.body;
-            const owner = await res.locals.user;
-            if (!await Advert.checkUser(req.params.property_id, owner.id)) return Res.handleError(406, 'None of the ads with such id belongs to you', res);
+            const owner = res.locals.user;
+            if (!await Advert.checkUser(req.params.property_id, owner)) return Res.handleError(406, 'None of the ads with such id belongs to you', res);
             if (price && await Regex.floatCheck(price)) return Res.handleError(400, 'Price should be a number', res);
             if (state && await Regex.nameCheck(state)) return Res.handleError(400, 'Please enter valid State', res);
             if (city && await Regex.nameCheck(city)) return Res.handleError(400, 'Please enter valid city', res);

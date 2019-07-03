@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import Res from '../helpers/responses';
-import User from '../../Models/UsersModel';
 
 dotenv.config();
 
@@ -16,7 +15,7 @@ const userToken = async (req, res, next) => {
     const token = await checkToken(req);
     jwt.verify(token, process.env.JWT_KEY, (err, data) => {
         if (err) return Res.handleError(403, err.message, res);
-        const user = User.getUser(data.email);
+        const user = data.id;
         res.locals.user = user;
         next();
     });
