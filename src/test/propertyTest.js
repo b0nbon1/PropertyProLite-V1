@@ -464,7 +464,6 @@ describe('Property', () => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.message.should.equal('sold property successfully');
-                    res.body.data.status.should.equal('sold');
                     if (err) return done();
                     done();
                 });
@@ -483,7 +482,7 @@ describe('Property', () => {
         });
         it('should check if token available', (done) => {
             chai.request(app)
-                .post('/api/v1/property/1/sold')
+                .patch('/api/v1/property/1/sold')
                 .end((err, res) => {
                     res.should.have.status(403);
                     res.body.should.be.a('object');
