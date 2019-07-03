@@ -47,6 +47,7 @@ export default class Authentication {
             const checkUser = new User(email);
             if (await checkUser.login()) {
                 if (bcrypt.compareSync(password, checkUser.result.password)) {
+                    // eslint-disable-next-line no-shadow
                     const { id, email } = checkUser.result;
                     const token = await Token.newToken({ email, id });
                     return Res.handleAuthSuccess(200, 'successfully logged in', token, checkUser.result, res);
