@@ -13,8 +13,7 @@ export default class Property {
                 price, state, city, address, type, imageUrl,
             } = req.body;
             const id = Uid(propertyId);
-            const user = await res.locals.user;
-            const owner = user.id;
+            const owner = res.locals.user;
             const status = 'available';
             const createdOn = date();
             const newProperty = new PropertyModel({
@@ -66,8 +65,8 @@ export default class Property {
     static async markSold(req, res) {
         try {
             const id = parseInt(req.params.property_id, 10);
-            const owner = await res.locals.user;
-            if (!await PropertyModel.checkUser(id, owner.id)) return Res.handleError(406, 'None of the ads with such id belongs to you', res);
+            const owner = res.locals.user;
+            if (!await PropertyModel.checkUser(id, owner)) return Res.handleError(406, 'None of the ads with such id belongs to you', res);
             const sold = { status: 'sold', id };
             const property = new PropertyModel(sold);
             await property.update();
