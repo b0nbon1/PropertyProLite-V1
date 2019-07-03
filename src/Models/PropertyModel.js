@@ -17,7 +17,8 @@ export default class Property extends Model {
 
     static async checkUser(id, owner) {
         const advert = db.find(o => o.id === parseInt(id, 10));
-        return Object.is(advert.owner, owner);
+        if (advert) return Object.is(advert.owner, owner);
+        return false;
     }
 
     static async findAll() {
