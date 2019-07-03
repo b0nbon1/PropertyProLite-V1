@@ -12,5 +12,6 @@ route.get('/property', Property.getAll);
 route.get('/property/:property_id', Property.getOne);
 route.patch('/property/:property_id/sold', Token.userToken, Property.markSold);
 route.delete('/property/:property_id', Token.userToken, Property.delProperty);
+route.get('/properties', Validations.type, Property.specType);
 
 export default route;

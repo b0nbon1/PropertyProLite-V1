@@ -83,4 +83,14 @@ export default class Validations {
             return Res.handleError(500, error.toString(), res);
         }
     }
+
+    static async type(req, res, next) {
+        try {
+            const { type } = req.query;
+            if (!type) return Res.handleError(400, 'Please ensure there is query type made', res);
+            next();
+        } catch (err) {
+            return Res.handleError(500, err.toString(), res);
+        }
+    }
 }

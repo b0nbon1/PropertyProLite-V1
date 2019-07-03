@@ -37,4 +37,13 @@ export default class Property extends Model {
     async del() {
         this.deleteDb(db, this.payload);
     }
+
+    async getType() {
+        const advert = db.filter(o => o.type === this.payload);
+        if (!advert.length) {
+            return false;
+        }
+        this.result = advert;
+        return true;
+    }
 }
