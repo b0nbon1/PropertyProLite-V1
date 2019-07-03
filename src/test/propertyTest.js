@@ -492,4 +492,30 @@ describe('Property', () => {
                 });
         });
     });
+    describe('Delete property', () => {
+        it('should delete his/her own posts', (done) => {
+            chai.request(app)
+                .delete('/api/v1/property/1/sold')
+                .set('authorization', `Bearer ${wrongUser}`)
+                .end((err, res) => {
+                    res.should.have.status(406);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('None of the ads with such id belongs to you');
+                    if (err) return done();
+                    done();
+                });
+        });
+        it('should delete advert successfully', (done) => {
+            chai.request(app)
+                .delete('/api/v1/property/1')
+                .set('authorization', `Bearer ${token}`)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('delete property successfully');
+                    if (err) return done();
+                    done();
+                });
+        });
+    });
 });
