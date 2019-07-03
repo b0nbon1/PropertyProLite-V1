@@ -93,4 +93,14 @@ export default class Validations {
             return Res.handleError(500, err.toString(), res);
         }
     }
+
+    static async report(req, res, next) {
+        try {
+            const { reason, description } = req.body;
+            if (!reason || !description) return Res.handleError(400, 'Please fill all fields', res);
+            next();
+        } catch (err) {
+            return Res.handleError(500, err.toString(), res);
+        }
+    }
 }
