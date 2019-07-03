@@ -455,4 +455,41 @@ describe('Property', () => {
                 });
         });
     });
+    describe('update property as sold', () => {
+        it('should update specific advert successfully as sold', (done) => {
+            chai.request(app)
+                .patch('/api/v1/property/1/sold')
+                .set('authorization', `Bearer ${token}`)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('sold property successfully');
+                    if (err) return done();
+                    done();
+                });
+        });
+        it('should update his/her own posts', (done) => {
+            chai.request(app)
+                .patch('/api/v1/property/1/sold')
+                .set('authorization', `Bearer ${wrongUser}`)
+                .end((err, res) => {
+                    res.should.have.status(406);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('None of the ads with such id belongs to you');
+                    if (err) return done();
+                    done();
+                });
+        });
+        it('should check if token available', (done) => {
+            chai.request(app)
+                .patch('/api/v1/property/1/sold')
+                .end((err, res) => {
+                    res.should.have.status(403);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('Token required');
+                    if (err) return done();
+                    done();
+                });
+        });
+    });
 });
