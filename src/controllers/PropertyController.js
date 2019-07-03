@@ -5,8 +5,6 @@ import Uid from '../utils/helpers/Ids';
 import PropertyModel from '../Models/PropertyModel';
 import Res from '../utils/helpers/responses';
 
-const status = 'available';
-const createdOn = date;
 
 export default class Property {
     static async Post(req, res) {
@@ -17,6 +15,8 @@ export default class Property {
             const id = Uid(propertyId);
             const user = await res.locals.user;
             const owner = user.id;
+            const status = 'available';
+            const createdOn = date();
             const newProperty = new PropertyModel({
                 id, status, owner, price, state, city, address, type, imageUrl, createdOn,
             });
@@ -34,7 +34,7 @@ export default class Property {
             } = req.body;
             const id = parseInt(req.params.property_id, 10);
             const newProperty = new PropertyModel({
-                id, status, price, state, city, address, type, imageUrl,
+                id, price, state, city, address, type, imageUrl,
             });
             await newProperty.update();
             return Res.handleSuccess(200, 'successfully updated advert', newProperty.result, res);
@@ -58,6 +58,20 @@ export default class Property {
             const property = new PropertyModel(id);
             if (await property.findOne()) return Res.handleSuccess(200, 'got property successfully', property.result, res);
             return Res.handleError(404, 'Property with such id does not exists', res);
+        } catch (err) {
+            return Res.handleError(500, err.toString(), res);
+        }
+    }
+
+    static async markSold(req, res) {
+        try {
+            const id = parseInt(req.params.property_id, 10);
+            const owner = await res.locals.user;
+            if (!await PropertyModel.checkUser(id, owner.id)) return Res.handleError(406, 'None of the ads with such id belongs to you', res);
+            const sold = { status: 'sold', id };
+            const property = new PropertyModel(sold);
+            await property.update();
+            return Res.handleSuccess(200, 'sold property successfully', property.result, res);
         } catch (err) {
             return Res.handleError(500, err.toString(), res);
         }
