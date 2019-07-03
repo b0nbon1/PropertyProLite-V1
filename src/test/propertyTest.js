@@ -492,6 +492,41 @@ describe('Property', () => {
                 });
         });
     });
+    describe('Get specific property', () => {
+        it('should get properties by specific type', (done) => {
+            chai.request(app)
+                .get('/api/v1/properties?type="one bedroom"')
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('got specific type Successful');
+                    if (err) return done();
+                    done();
+                });
+        });
+        it('property type should exist should', (done) => {
+            chai.request(app)
+                .get('/api/v1/properties?type="bedroom"')
+                .end((err, res) => {
+                    res.should.have.status(404);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('adverts with this type does not exists');
+                    if (err) return done();
+                    done();
+                });
+        });
+        it('should have the query', (done) => {
+            chai.request(app)
+                .get('/api/v1/properties?type=""')
+                .end((err, res) => {
+                    res.should.have.status(404);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('No type made query made');
+                    if (err) return done();
+                    done();
+                });
+        });
+    });
     describe('Delete property', () => {
         it('should delete his/her own posts', (done) => {
             chai.request(app)
