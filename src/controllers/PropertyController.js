@@ -42,4 +42,13 @@ export default class Property {
             return Res.handleError(500, err.toString(), res);
         }
     }
+
+    static async getAll(req, res) {
+        try {
+            const data = await PropertyModel.getAll();
+            return Res.handleSuccess(200, 'got all properties successfully', data, res);
+        } catch (err) {
+            return Res.handleError(500, err.toString(), res);
+        }
+    }
 }
