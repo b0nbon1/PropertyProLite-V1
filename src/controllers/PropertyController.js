@@ -89,4 +89,15 @@ export default class Property {
             return Res.handleError(500, err.toString(), res);
         }
     }
+
+    static async specType(req, res) {
+        try {
+            const { type } = req.query;
+            const property = new PropertyModel(type);
+            if (!await property.getType()) return Res.handleError(404, 'adverts with this type does not exists', res);
+            return Res.handleSuccess(200, 'got specific type Successful', property.result, res);
+        } catch (err) {
+            return Res.handleError(500, err.toString(), res);
+        }
+    }
 }
