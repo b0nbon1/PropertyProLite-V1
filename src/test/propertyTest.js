@@ -418,4 +418,17 @@ describe('Property', () => {
                 });
         });
     });
+    describe('get all adverts', () => {
+        it('should get all advert successfully', (done) => {
+            chai.request(app)
+                .get('/api/v1/property')
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('got all properties successfully');
+                    if (err) return done();
+                    done();
+                });
+        });
+    });
 });

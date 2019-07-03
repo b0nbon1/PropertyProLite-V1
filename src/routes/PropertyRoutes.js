@@ -8,5 +8,6 @@ const route = express.Router();
 route.post('/property', Validations.property, Token.userToken, Property.Post);
 route.patch('/property/:property_id', Token.userToken,
     Validations.update, Property.Update);
+route.get('/property', Property.getAll);
 
 export default route;

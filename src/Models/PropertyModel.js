@@ -19,4 +19,8 @@ export default class Property extends Model {
         const advert = db.find(o => o.id === parseInt(id, 10));
         return Object.is(advert.owner, owner);
     }
+
+    static async getAll() {
+        return db;
+    }
 }
