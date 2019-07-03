@@ -425,7 +425,7 @@ describe('Property', () => {
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
-                    res.body.message.should.equal('got all property successfully');
+                    res.body.message.should.equal('got all properties successfully');
                     if (err) return done();
                     done();
                 });
