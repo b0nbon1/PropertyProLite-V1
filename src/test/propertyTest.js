@@ -449,7 +449,7 @@ describe('Property', () => {
                 .end((err, res) => {
                     res.should.have.status(404);
                     res.body.should.be.a('object');
-                    res.body.message.should.equal('Property with such id does not exist');
+                    res.body.message.should.equal('Property with such id does not exists');
                     if (err) return done();
                     done();
                 });
