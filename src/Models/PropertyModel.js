@@ -20,7 +20,16 @@ export default class Property extends Model {
         return Object.is(advert.owner, owner);
     }
 
-    static async getAll() {
+    static async findAll() {
         return db;
+    }
+
+    async findOne() {
+        const advert = db.find(o => o.id === this.payload);
+        if (advert) {
+            this.result = advert;
+            return true;
+        }
+        return false;
     }
 }
