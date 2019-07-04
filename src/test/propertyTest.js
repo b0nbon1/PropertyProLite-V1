@@ -492,8 +492,106 @@ describe('Property', () => {
                 });
         });
     });
+    describe('Post fraud report property', () => {
+        before('generate new property', (done) => {
+            chai.request(app)
+                .post('/api/v1/property')
+                .send({
+                    price: 400,
+                    state: 'Kenya',
+                    city: 'Nairobi',
+                    type: 'apartment',
+                    address: 'kenya, 5th street',
+                    imageUrl: 'https://user-images.githubusercontent.com/46062609/60184047-08807800-9830-11e9-913c-cb55d650f858.PNG',
+                })
+                .set('authorization', `Bearer ${token}`)
+                .end((err) => {
+                    if (err) return done();
+                    done();
+                });
+        });
+        it('should create new report successfully', (done) => {
+            chai.request(app)
+                .post('/api/v1/property/1/flag')
+                .send({
+                    reason: 'price',
+                    description: 'The price is to high for this property',
+                })
+                .set('authorization', `Bearer ${token}`)
+                .end((err, res) => {
+                    res.should.have.status(201);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('successfully created a report');
+                    if (err) return done();
+                    done();
+                });
+        });
+        it('should have a reason', (done) => {
+            chai.request(app)
+                .post('/api/v1/property/1/flag')
+                .send({
+                    reason: '',
+                    description: 'The price is to high for this property',
+                })
+                .set('authorization', `Bearer ${token}`)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('Please fill all fields');
+                    if (err) return done();
+                    done();
+                });
+        });
+        it('should have a description', (done) => {
+            chai.request(app)
+                .post('/api/v1/property/1/flag')
+                .send({
+                    reason: 'price',
+                    description: '',
+                })
+                .set('authorization', `Bearer ${token}`)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('Please fill all fields');
+                    if (err) return done();
+                    done();
+                });
+        });
+        it('should find the property with the id', (done) => {
+            chai.request(app)
+                .post('/api/v1/property/12/flag')
+                .send({
+                    reason: 'price',
+                    description: 'The price is to high for this property',
+                })
+                .set('authorization', `Bearer ${token}`)
+                .end((err, res) => {
+                    res.should.have.status(404);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('Property with such id does not exists');
+                    if (err) return done();
+                    done();
+                });
+        });
+        it('user should be logged in', (done) => {
+            chai.request(app)
+                .post('/api/v1/property/12/flag')
+                .send({
+                    reason: 'price',
+                    description: 'The price is to high for this property',
+                })
+                .end((err, res) => {
+                    res.should.have.status(403);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('Token required');
+                    if (err) return done();
+                    done();
+                });
+        });
+    });
     describe('Get specific property', () => {
-        before('generate JWT', (done) => {
+        before('generate new property', (done) => {
             chai.request(app)
                 .post('/api/v1/property')
                 .send({

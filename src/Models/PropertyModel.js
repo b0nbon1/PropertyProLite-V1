@@ -1,4 +1,5 @@
 import db from '../../database/Property';
+import dbReport from '../../database/report';
 import Model from './Model';
 import clean from '../utils/helpers/checkEmpty';
 
@@ -44,6 +45,14 @@ export default class Property extends Model {
             return false;
         }
         this.result = advert;
+        return true;
+    }
+
+    async report() {
+        const advert = db.find(o => o.id === this.payload.propertyId);
+        if (!advert) return false;
+        const report = this.payload;
+        await this.save(dbReport, report);
         return true;
     }
 }
