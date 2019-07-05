@@ -16,6 +16,9 @@ app.use(bodyParser.urlencoded({
 
 const prefix = '/api/v1';
 
+app.get('/', (req, res) => {
+    res.status(200).send('Welcome to our restful API');
+});
 app.use(prefix, users);
 app.use(prefix, property);
 
