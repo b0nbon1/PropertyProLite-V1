@@ -8,7 +8,7 @@ describe('Authentication', () => {
     describe('Register', () => {
         it('should register new user successfully', (done) => {
             chai.request(app)
-                .post('/api/v1/register')
+                .post('/api/v1/auth/signup')
                 .send({
                     firstname: 'bonbon',
                     lastname: 'vic',
@@ -28,7 +28,7 @@ describe('Authentication', () => {
         });
         it('should check user firstname', (done) => {
             chai.request(app)
-                .post('/api/v1/register')
+                .post('/api/v1/auth/signup')
                 .send({
                     firstname: '',
                     lastname: 'vic',
@@ -47,7 +47,7 @@ describe('Authentication', () => {
         });
         it('should check user lastname', (done) => {
             chai.request(app)
-                .post('/api/v1/register')
+                .post('/api/v1/auth/signup')
                 .send({
                     firstname: 'bonbon',
                     lastname: '',
@@ -66,7 +66,7 @@ describe('Authentication', () => {
         });
         it('should check user email', (done) => {
             chai.request(app)
-                .post('/api/v1/register')
+                .post('/api/v1/auth/signup')
                 .send({
                     firstname: 'bonbon',
                     lastname: 'vic',
@@ -85,7 +85,7 @@ describe('Authentication', () => {
         });
         it('should check user address', (done) => {
             chai.request(app)
-                .post('/api/v1/register')
+                .post('/api/v1/auth/signup')
                 .send({
                     firstname: 'bonbon',
                     lastname: 'vic',
@@ -104,7 +104,7 @@ describe('Authentication', () => {
         });
         it('should check user phone Number', (done) => {
             chai.request(app)
-                .post('/api/v1/register')
+                .post('/api/v1/auth/signup')
                 .send({
                     firstname: 'bonbon',
                     lastname: 'vic',
@@ -123,7 +123,7 @@ describe('Authentication', () => {
         });
         it('should check invalid user phone Number', (done) => {
             chai.request(app)
-                .post('/api/v1/register')
+                .post('/api/v1/auth/signup')
                 .send({
                     firstname: 'bonbon',
                     lastname: 'vic',
@@ -142,7 +142,7 @@ describe('Authentication', () => {
         });
         it('should check user password', (done) => {
             chai.request(app)
-                .post('/api/v1/register')
+                .post('/api/v1/auth/signup')
                 .send({
                     firstname: 'bonbon',
                     lastname: 'vic',
@@ -161,7 +161,7 @@ describe('Authentication', () => {
         });
         it('should check user password if it has more than 6 characters', (done) => {
             chai.request(app)
-                .post('/api/v1/register')
+                .post('/api/v1/auth/signup')
                 .send({
                     firstname: 'bonbon',
                     lastname: 'vic',
@@ -180,7 +180,7 @@ describe('Authentication', () => {
         });
         it('should check user valid first name', (done) => {
             chai.request(app)
-                .post('/api/v1/register')
+                .post('/api/v1/auth/signup')
                 .send({
                     firstname: 'b&',
                     lastname: 'vic',
@@ -199,7 +199,7 @@ describe('Authentication', () => {
         });
         it('should check user valid last name', (done) => {
             chai.request(app)
-                .post('/api/v1/register')
+                .post('/api/v1/auth/signup')
                 .send({
                     firstname: 'bonbon',
                     lastname: 'v%',
@@ -218,7 +218,7 @@ describe('Authentication', () => {
         });
         it('should check user valid email', (done) => {
             chai.request(app)
-                .post('/api/v1/register')
+                .post('/api/v1/auth/signup')
                 .send({
                     firstname: 'bonbon',
                     lastname: 'vicker',
@@ -237,7 +237,7 @@ describe('Authentication', () => {
         });
         it('should check if user email exists', (done) => {
             chai.request(app)
-                .post('/api/v1/register')
+                .post('/api/v1/auth/signup')
                 .send({
                     firstname: 'bonbon',
                     lastname: 'vic',
@@ -258,7 +258,7 @@ describe('Authentication', () => {
     describe('Login', () => {
         it('should Login user successfully', (done) => {
             chai.request(app)
-                .post('/api/v1/login')
+                .post('/api/v1/auth/login')
                 .send({
                     email: 'bonbo@test.com',
                     password: 'f5e4xhr43dh4t',
@@ -274,7 +274,7 @@ describe('Authentication', () => {
         });
         it('should check user email', (done) => {
             chai.request(app)
-                .post('/api/v1/login')
+                .post('/api/v1/auth/login')
                 .send({
                     email: '',
                     password: 'ftdtfr5e4x4t',
@@ -289,7 +289,7 @@ describe('Authentication', () => {
         });
         it('should check all fields present', (done) => {
             chai.request(app)
-                .post('/api/v1/login')
+                .post('/api/v1/auth/login')
                 .send({
                     email: '',
                     password: '',
@@ -304,7 +304,7 @@ describe('Authentication', () => {
         });
         it('should check user password', (done) => {
             chai.request(app)
-                .post('/api/v1/login')
+                .post('/api/v1/auth/login')
                 .send({
                     email: 'bonhdfsd@test.com',
                     password: '',
@@ -319,7 +319,7 @@ describe('Authentication', () => {
         });
         it('should confirm if user exists', (done) => {
             chai.request(app)
-                .post('/api/v1/login')
+                .post('/api/v1/auth/login')
                 .send({
                     email: 'bonhdfsd@test.com',
                     password: 'ftdtfr5e4x4t',
@@ -334,7 +334,7 @@ describe('Authentication', () => {
         });
         it('should check if the password matches', (done) => {
             chai.request(app)
-                .post('/api/v1/login')
+                .post('/api/v1/auth/login')
                 .send({
                     email: 'bonbo@test.com',
                     password: 'ftdtfr5u6g',
