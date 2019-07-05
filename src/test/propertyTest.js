@@ -12,7 +12,7 @@ chai.should();
 describe('Property', () => {
     before('generate JWT', (done) => {
         chai.request(app)
-            .post('/api/v1/login')
+            .post('/api/v1/auth/login')
             .send({
                 email: 'bonbo@test.com',
                 password: 'f5e4xhr43dh4t',
@@ -26,7 +26,7 @@ describe('Property', () => {
     });
     before('generate token for wrong user', (done) => {
         chai.request(app)
-            .post('/api/v1/register')
+            .post('/api/v1/auth/signup')
             .send({
                 firstname: 'bonbon',
                 lastname: 'vic',
