@@ -4,7 +4,7 @@
   "description": "Property Pro Lite is a platform where people can create and/or search properties for sale or rent.",
   "main": "app.js",
   "scripts": {
-    "start": "babel-node server.js",
+    "start": "./node_modules/.bin/babel-node server.js",
     "server": "nodemon --exec babel-node server.js",
     "heroku-postbuild": "npm install",
     "test": "nyc ./node_modules/.bin/mocha --require @babel/register ./src/test/*.js  --timeout 150000 --exit",
