@@ -6,9 +6,10 @@
 Property Pro Lite is a platform where people can create and/or search properties for sale or rent.
 
 ## Getting Started
+
 By running the following command Property-Pro-Lite-Api will be automatically downloaded to your local machine so lets get started.
 
-```
+```sh
 git clone https://github.com/b0nbon1/PropertyProLite-V1
 ```
 
@@ -18,57 +19,64 @@ before you install the software make sure you have the following already install
 
 - nodejs get it [here](https://nodejs.org)
 
-
 ### Installing api
 
 A step by step series of examples that tell you how to get a development env running
+
 1. run
+
+```sh
+npm install
 ```
-npm install 
-```
+
 To install all the necessary dependencies packages on your local computer
 
-2. set up environment variables by creating a dotenv file
-   * add **PORT** with value of port number
-   * add **JWT_KEY** with value of any secret word
+1. set up environment variables by creating a dotenv file
+   - add **PORT** with value of port number
+   - add **JWT_KEY** with value of any secret word
 
-3. To start your sever
-```
+2. To start your sever
+
+```sh
 npm start
 ```
 
-
 ## Running the tests
 
-TO run the test for the api 
+TO run the test for the api
+
+```sh
+npm test
 ```
-npm test 
-```
+
 ## Api Endpoints
+
 These are the endpoints for this api :
 
 | Endpoint        | Endpoint                 | Functionality|
 | ------------- | --------------------------|------------|
-| POST /signup          |`/api/v1/auth/signup`   |User create an account|
-| POST  /login       | `/api/v1/auth/login`   |User login to their account|
-| POST   /property     | `/api/v1/property`    |Agent post property advert|
-| PATCH    /property/<:property-id>     | `/api/v1/property/<:property_id>`|Agent update their property advert|
-| PATCH    /property/<:property-id>/sold      | `/api/v1/property/<:property_id>/sold`       |Agent mark their advert as sold|
-| DELETE  /property/<:property-id>     | `/api/v1/property/<:property_id>` |Agent delete their advert|
-| GET /property | `/api/v1/property`|get all property adverts|
-| GET /properties?type=propertyType |`/api/v1/properties?type=propertyType` |get all property adverts of specific type|
-| GET /property/<:property-id>         | `/api/v1/property/<:property_id>`|get a specific advert|
-| POST  /property/<:property-id>/report        | `/api/v1/property/<:property_id>/report`      |User report property as Fraud|
+| POST /signup          | `/api/v1/auth/signup`   | User create an account |
+| POST  /login       | `/api/v1/auth/login`   | User login to their account |
+| POST   /property     | `/api/v1/property`    | Agent post property advert |
+| PATCH    /property/<:property-id>     | `/api/v1/property/<:property_id>`| Agent update their property advert |
+| PATCH    /property/<:property-id>/sold      | `/api/v1/property/<:property_id>/sold`       |Agent mark their advert as sold |
+| DELETE  /property/<:property-id>     | `/api/v1/property/<:property_id>` | Agent delete their advert |
+| GET /property |  `/api/v1/property` |get all property adverts|
+| GET /properties?type=propertyType | `/api/v1/properties?type=propertyType` | get all property adverts of specific type |
+| GET /property/<:property-id>         | `/api/v1/property/<:property_id>` | get a specific advert |
+| POST  /property/<:property-id>/report        | `/api/v1/property/<:property_id>/report`      | User report property as Fraud |
 
 ## PIVOTAL TRACKER BOARD
+
 Click here to view: [PIVOTAL TRACKER STORIES](https://www.pivotaltracker.com/n/projects/2353886)
 
 ## HEROKU LINK
 
-The api is hosted on heroku: https://propertyprolitev1.herokuapp.com/
+The api is hosted on heroku: [Heroku](https://propertyprolitev1.herokuapp.com/)
 
-## Author by:
+## Author by
 
 [Bonvic Bundi](https://www.bonbo.io.ke)
 
-[![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](https://twitter.com/Bonvic7) [![GitHub followers](https://img.shields.io/github/followers/b0nbon1.svg?style=social&label=Follow&maxAge=2592000)](https://github.com/b0nbon1?tab=followers)
+[![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](https://twitter.com/Bonvic7)
+[![GitHub followers](https://img.shields.io/github/followers/b0nbon1.svg?style=social&label=Follow&maxAge=2592000)](https://github.com/b0nbon1?tab=followers)
