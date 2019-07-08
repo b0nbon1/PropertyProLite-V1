@@ -300,6 +300,66 @@ describe('Property', () => {
                     done();
                 });
         });
+        it('should contain an image url', (done) => {
+            chai.request(app)
+                .post('/api/v1/property')
+                .send({
+                    price: 400,
+                    state: 'Kenya',
+                    city: 'Nairobi',
+                    type: 'apartment',
+                    address: 'kenya, 5th street',
+                    imageUrl: '',
+                })
+                .set('authorization', `Bearer ${token}`)
+                .end((err, res) => {
+                    res.should.have.status(201);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('Please fill all the fields');
+                    if (err) return done();
+                    done();
+                });
+        });
+        it('should contain an image url', (done) => {
+            chai.request(app)
+                .post('/api/v1/property')
+                .send({
+                    price: 400,
+                    state: 'Kenya',
+                    city: 'Nairobi',
+                    type: 'apartment',
+                    address: 'kenya, 5th street',
+                    imageUrl: 'nyr6754b675xi43',
+                })
+                .set('authorization', `Bearer ${token}`)
+                .end((err, res) => {
+                    res.should.have.status(201);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('Please fill all the fields');
+                    if (err) return done();
+                    done();
+                });
+        });
+        it('should successfully upload image from locally', (done) => {
+            chai.request(app)
+                .post('/api/v1/property')
+                .send({
+                    price: 400,
+                    state: 'Kenya',
+                    city: 'Nairobi',
+                    type: 'apartment',
+                    address: 'kenya, 5th street',
+                    imageUrl: '/home/bon/Pictures/Screenshot_from_2019-07-08_13-30-34.png',
+                })
+                .set('authorization', `Bearer ${token}`)
+                .end((err, res) => {
+                    res.should.have.status(201);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('successfully created an advert');
+                    if (err) return done();
+                    done();
+                });
+        });
     });
     describe('Update advert', () => {
         it('should update advert successfully', (done) => {
