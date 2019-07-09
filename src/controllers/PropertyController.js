@@ -5,18 +5,22 @@ import date from '../utils/helpers/dates';
 import Uid from '../utils/helpers/Ids';
 import PropertyModel from '../Models/PropertyModel';
 import Res from '../utils/helpers/responses';
+import upload from '../utils/helpers/upload';
 
+const status = 'available';
 
 export default class Property {
     static async Post(req, res) {
         try {
             const {
-                price, state, city, address, type, imageUrl,
+                price, state, city, address, type,
             } = req.body;
+            const image = req.files.photo;
             const id = Uid(propertyId);
+            const imageUrl = await upload(image, id);
             const owner = res.locals.user;
-            const status = 'available';
             const createdOn = date();
+            if (!imageUrl) return Res.handleError(400, 'Please try again to upload your image', res);
             const newProperty = new PropertyModel({
                 id, status, owner, price, state, city, address, type, imageUrl, createdOn,
             });
