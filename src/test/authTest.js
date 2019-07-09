@@ -2,6 +2,8 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../app';
 
+let token;
+
 chai.use(chaiHttp);
 chai.should();
 describe('Authentication', () => {
@@ -343,6 +345,47 @@ describe('Authentication', () => {
                     res.should.have.status(401);
                     res.body.should.be.a('object');
                     res.body.message.should.equal('wrong password!');
+                    if (err) return done();
+                    done();
+                });
+        });
+    });
+    describe('Profile', () => {
+        before('generate new property', (done) => {
+            chai.request(app)
+                .post('/api/v1/property')
+                .send({
+                    price: 400,
+                    state: 'Kenya',
+                    city: 'Nairobi',
+                    type: 'apartment',
+                    address: 'kenya, 5th street',
+                })
+                .set('authorization', `Bearer ${token}`)
+                .end((err) => {
+                    if (err) return done();
+                    done();
+                });
+        });
+        it('should get user successfully', (done) => {
+            chai.request(app)
+                .get('/api/v1/auth/user')
+                .set('authorization', `Bearer ${token}`)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('Successful got the data');
+                    if (err) return done();
+                    done();
+                });
+        });
+        it('User should be authenticated', (done) => {
+            chai.request(app)
+                .get('/api/v1/auth/user')
+                .end((err, res) => {
+                    res.should.have.status(403);
+                    res.body.should.be.a('object');
+                    res.body.message.should.equal('Please login first');
                     if (err) return done();
                     done();
                 });
