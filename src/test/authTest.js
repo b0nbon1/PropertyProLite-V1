@@ -351,18 +351,16 @@ describe('Authentication', () => {
         });
     });
     describe('Profile', () => {
-        before('generate new property', (done) => {
+        before('generate JWT', (done) => {
             chai.request(app)
-                .post('/api/v1/property')
+                .post('/api/v1/auth/login')
                 .send({
-                    price: 400,
-                    state: 'Kenya',
-                    city: 'Nairobi',
-                    type: 'apartment',
-                    address: 'kenya, 5th street',
+                    email: 'bonbo@test.com',
+                    password: 'f5e4xhr43dh4t',
                 })
-                .set('authorization', `Bearer ${token}`)
-                .end((err) => {
+                .end((err, res) => {
+                    // eslint-disable-next-line prefer-destructuring
+                    token = res.body.token;
                     if (err) return done();
                     done();
                 });
@@ -385,7 +383,6 @@ describe('Authentication', () => {
                 .end((err, res) => {
                     res.should.have.status(403);
                     res.body.should.be.a('object');
-                    res.body.message.should.equal('Please login first');
                     if (err) return done();
                     done();
                 });
