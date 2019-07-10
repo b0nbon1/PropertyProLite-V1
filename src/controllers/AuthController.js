@@ -46,15 +46,28 @@ export default class Authentication {
             } = req.body;
             const checkUser = new User(email);
             if (await checkUser.login()) {
+                // console.log(checkUser.result);
                 if (bcrypt.compareSync(password, checkUser.result.password)) {
                     // eslint-disable-next-line no-shadow
                     const { id, email } = checkUser.result;
                     const token = await Token.newToken({ email, id });
-                    return Res.handleAuthSuccess(200, 'successfully logged in', token, checkUser.result, res);
+                    const data = checkUser.result;
+                    return Res.handleAuthSuccess(200, 'successfully logged in', token, data, res);
                 }
                 return Res.handleError(401, 'wrong password!', res);
             }
             return Res.handleError(404, 'User is not registered. Sign up to create account', res);
+        } catch (err) {
+            return Res.handleError(500, err.toString(), res);
+        }
+    }
+
+    static async profile(req, res) {
+        try {
+            const id = res.locals.user;
+            const user = new User(id);
+            await user.profile();
+            return Res.handleSuccess(200, 'Successful got the data', user.result, res);
         } catch (err) {
             return Res.handleError(500, err.toString(), res);
         }

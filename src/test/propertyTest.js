@@ -4,8 +4,8 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../app';
 
-let token, wrongUser;
-const wrongToken = '654gyujy5ygre';
+let toke, wrongUser;
+const wrongToke = '654gyujy5ygre';
 const image = './src/Mockdata/Screenshot_from_2019-07-08_13-30-34.png';
 
 chai.use(chaiHttp);
@@ -13,19 +13,23 @@ chai.should();
 describe('Property', () => {
     before('generate JWT', (done) => {
         chai.request(app)
-            .post('/api/v1/auth/login')
+            .post('/api/v1/auth/signup')
             .send({
-                email: 'bonbo@test.com',
+                firstname: 'bonbon',
+                lastname: 'vic',
+                email: 'bonb@test.com',
+                phoneNumber: '+254742087558',
+                address: 'kenya',
                 password: 'f5e4xhr43dh4t',
             })
             .end((err, res) => {
                 // eslint-disable-next-line prefer-destructuring
-                token = res.body.token;
+                wrongUser = res.body.token;
                 if (err) return done();
                 done();
             });
     });
-    before('generate token for wrong user', (done) => {
+    before('generate toke for wrong user', (done) => {
         chai.request(app)
             .post('/api/v1/auth/signup')
             .send({
@@ -38,7 +42,7 @@ describe('Property', () => {
             })
             .end((err, res) => {
                 // eslint-disable-next-line prefer-destructuring
-                wrongUser = res.body.token;
+                toke = res.body.token;
                 if (err) return done();
                 done();
             });
@@ -63,7 +67,7 @@ describe('Property', () => {
                     done();
                 });
         });
-        it('should check if token is valid', (done) => {
+        it('should check if toke is valid', (done) => {
             chai.request(app)
                 .post('/api/v1/property')
                 .field({
@@ -74,7 +78,7 @@ describe('Property', () => {
                     address: 'kenya, 5th street',
                 })
                 .attach('photo', image)
-                .set('authorization', `Bearer ${wrongToken}`)
+                .set('authorization', `Bearer ${wrongToke}`)
                 .end((err, res) => {
                     res.should.have.status(403);
                     if (err) return done();
@@ -92,7 +96,7 @@ describe('Property', () => {
                     address: 'kenya, 5th street',
                 })
                 .attach('photo', image)
-                .set('authorization', `Bearer ${token}`)
+                .set('authorization', `Bearer ${toke}`)
                 .end((err, res) => {
                     res.should.have.status(201);
                     res.body.should.be.a('object');
@@ -112,7 +116,7 @@ describe('Property', () => {
                     address: 'kenya, 5th street',
                 })
                 .attach('photo', image)
-                .set('authorization', `Bearer ${token}`)
+                .set('authorization', `Bearer ${toke}`)
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
@@ -132,7 +136,7 @@ describe('Property', () => {
                     address: 'kenya, 5th street',
                 })
                 .attach('photo', image)
-                .set('authorization', `Bearer ${token}`)
+                .set('authorization', `Bearer ${toke}`)
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
@@ -152,7 +156,7 @@ describe('Property', () => {
                     address: 'kenya, 5th street',
                 })
                 .attach('photo', image)
-                .set('authorization', `Bearer ${token}`)
+                .set('authorization', `Bearer ${toke}`)
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
@@ -172,7 +176,7 @@ describe('Property', () => {
                     address: 'kenya, 5th street',
                 })
                 .attach('photo', image)
-                .set('authorization', `Bearer ${token}`)
+                .set('authorization', `Bearer ${toke}`)
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
@@ -192,7 +196,7 @@ describe('Property', () => {
                     address: '',
                 })
                 .attach('photo', image)
-                .set('authorization', `Bearer ${token}`)
+                .set('authorization', `Bearer ${toke}`)
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
@@ -212,7 +216,7 @@ describe('Property', () => {
                     address: '5th street down',
                 })
                 .attach('photo', image)
-                .set('authorization', `Bearer ${token}`)
+                .set('authorization', `Bearer ${toke}`)
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
@@ -232,7 +236,7 @@ describe('Property', () => {
                     address: '5th street',
                 })
                 .attach('photo', image)
-                .set('authorization', `Bearer ${token}`)
+                .set('authorization', `Bearer ${toke}`)
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
@@ -252,7 +256,7 @@ describe('Property', () => {
                     address: '5th street',
                 })
                 .attach('photo', image)
-                .set('authorization', `Bearer ${token}`)
+                .set('authorization', `Bearer ${toke}`)
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
@@ -272,7 +276,7 @@ describe('Property', () => {
                     address: '5th street',
                 })
                 .attach('photo', image)
-                .set('authorization', `Bearer ${token}`)
+                .set('authorization', `Bearer ${toke}`)
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
@@ -292,7 +296,7 @@ describe('Property', () => {
                     address: '5th&%$#',
                 })
                 .attach('photo', image)
-                .set('authorization', `Bearer ${token}`)
+                .set('authorization', `Bearer ${toke}`)
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
@@ -311,7 +315,7 @@ describe('Property', () => {
                     type: 'apartment',
                     address: 'kenya, 5th street',
                 })
-                .set('authorization', `Bearer ${token}`)
+                .set('authorization', `Bearer ${toke}`)
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
@@ -331,7 +335,7 @@ describe('Property', () => {
                     address: 'kenya, 5th street',
                 })
                 .attach('photo', image)
-                .set('authorization', `Bearer ${token}`)
+                .set('authorization', `Bearer ${toke}`)
                 .end((err, res) => {
                     res.should.have.status(201);
                     res.body.should.be.a('object');
@@ -352,7 +356,7 @@ describe('Property', () => {
                     type: 'two bedroom',
                     address: '5th street',
                 })
-                .set('authorization', `Bearer ${token}`)
+                .set('authorization', `Bearer ${toke}`)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -386,7 +390,7 @@ describe('Property', () => {
                 .send({
                     price: 't#',
                 })
-                .set('authorization', `Bearer ${token}`)
+                .set('authorization', `Bearer ${toke}`)
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
@@ -401,7 +405,7 @@ describe('Property', () => {
                 .send({
                     state: 'K@',
                 })
-                .set('authorization', `Bearer ${token}`)
+                .set('authorization', `Bearer ${toke}`)
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
@@ -416,7 +420,7 @@ describe('Property', () => {
                 .send({
                     city: 'N@$',
                 })
-                .set('authorization', `Bearer ${token}`)
+                .set('authorization', `Bearer ${toke}`)
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
@@ -431,7 +435,7 @@ describe('Property', () => {
                 .send({
                     type: 'one%#%6',
                 })
-                .set('authorization', `Bearer ${token}`)
+                .set('authorization', `Bearer ${toke}`)
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
@@ -446,7 +450,7 @@ describe('Property', () => {
                 .send({
                     address: '5th&%$#',
                 })
-                .set('authorization', `Bearer ${token}`)
+                .set('authorization', `Bearer ${toke}`)
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
@@ -497,7 +501,7 @@ describe('Property', () => {
         it('should update specific advert successfully as sold', (done) => {
             chai.request(app)
                 .patch('/api/v1/property/1/sold')
-                .set('authorization', `Bearer ${token}`)
+                .set('authorization', `Bearer ${toke}`)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -518,7 +522,7 @@ describe('Property', () => {
                     done();
                 });
         });
-        it('should check if token available', (done) => {
+        it('should check if toke available', (done) => {
             chai.request(app)
                 .patch('/api/v1/property/1/sold')
                 .end((err, res) => {
@@ -541,7 +545,7 @@ describe('Property', () => {
                     type: 'apartment',
                     address: 'kenya, 5th street',
                 })
-                .set('authorization', `Bearer ${token}`)
+                .set('authorization', `Bearer ${toke}`)
                 .end((err) => {
                     if (err) return done();
                     done();
@@ -554,7 +558,7 @@ describe('Property', () => {
                     reason: 'price',
                     description: 'The price is to high for this property',
                 })
-                .set('authorization', `Bearer ${token}`)
+                .set('authorization', `Bearer ${toke}`)
                 .end((err, res) => {
                     res.should.have.status(201);
                     res.body.should.be.a('object');
@@ -570,7 +574,7 @@ describe('Property', () => {
                     reason: '',
                     description: 'The price is to high for this property',
                 })
-                .set('authorization', `Bearer ${token}`)
+                .set('authorization', `Bearer ${toke}`)
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
@@ -586,7 +590,7 @@ describe('Property', () => {
                     reason: 'price',
                     description: '',
                 })
-                .set('authorization', `Bearer ${token}`)
+                .set('authorization', `Bearer ${toke}`)
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
@@ -602,7 +606,7 @@ describe('Property', () => {
                     reason: 'price',
                     description: 'The price is to high for this property',
                 })
-                .set('authorization', `Bearer ${token}`)
+                .set('authorization', `Bearer ${toke}`)
                 .end((err, res) => {
                     res.should.have.status(404);
                     res.body.should.be.a('object');
@@ -638,7 +642,7 @@ describe('Property', () => {
                     type: 'apartment',
                     address: 'kenya, 5th street',
                 })
-                .set('authorization', `Bearer ${token}`)
+                .set('authorization', `Bearer ${toke}`)
                 .end((err) => {
                     if (err) return done();
                     done();
@@ -694,7 +698,7 @@ describe('Property', () => {
         it('should delete advert successfully', (done) => {
             chai.request(app)
                 .delete('/api/v1/property/1')
-                .set('authorization', `Bearer ${token}`)
+                .set('authorization', `Bearer ${toke}`)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
