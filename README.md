@@ -5,6 +5,19 @@
 
 Property Pro Lite is a platform where people can create and/or search properties for sale or rent.
 
+![](https://cdn.lennar.net/images/elevations/26366_eleC_lg.jpg?w=1200&h=650&as=1&d=20170814T093828)
+
+## Table Contents
+
+ 1. [Getting Started](#Getting-Started)
+ 2. [Prerequisites](#Prerequisites)
+ 3. [Installing the Api](#Installing-api)
+ 4. [Running Tests](#Running-the-tests)
+ 5. [API Endpoints](#Api-Endpoints)
+ 6. [Pivotal Tracker Board](#PIVOTAL-TRACKER-BOARD)
+ 7. [Heroku Link](#HEROKU-LINK)
+ 8. [Contributions](#Contributions)
+
 ## Getting Started
 
 By running the following command Property-Pro-Lite-Api will be automatically downloaded to your local machine so lets get started.
@@ -13,13 +26,13 @@ By running the following command Property-Pro-Lite-Api will be automatically dow
 git clone https://github.com/b0nbon1/PropertyProLite-V1
 ```
 
-### Prerequisites
+## Prerequisites
 
 before you install the software make sure you have the following already installed on your machine
 
 - nodejs get it [here](https://nodejs.org)
 
-### Installing api
+## Installing api
 
 A step by step series of examples that tell you how to get a development env running
 
@@ -74,9 +87,8 @@ Click here to view: [PIVOTAL TRACKER STORIES](https://www.pivotaltracker.com/n/p
 
 The api is hosted on heroku: [Heroku](https://propertyprolitev1.herokuapp.com/)
 
-## Author by
+## Contributions
 
 [Bonvic Bundi](https://www.bonbo.io.ke)
 
-[![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](https://twitter.com/Bonvic7)
-[![GitHub followers](https://img.shields.io/github/followers/b0nbon1.svg?style=social&label=Follow&maxAge=2592000)](https://github.com/b0nbon1?tab=followers)
+[![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](https://twitter.com/Bonvic7) [![GitHub followers](https://img.shields.io/github/followers/b0nbon1.svg?style=social&label=Follow&maxAge=2592000)](https://github.com/b0nbon1?tab=followers)
