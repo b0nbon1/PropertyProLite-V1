@@ -14,10 +14,11 @@ const save = async (db, obj) => {
     db.push(obj);
 };
 
-const upload = async (file, id) => {
-    if (typeof file !== 'object') return false;
+const upload = async (req, id) => {
+    if (req.files == null) return undefined;
+    const file = req.files.photo;
     const photo = await cloudinary.v2.uploader.upload(file.tempFilePath, (err, result) => {
-        if (err) return false;
+        if (err) return undefined;
         return result.url;
     });
     const propertyId = { propertyId: id };
