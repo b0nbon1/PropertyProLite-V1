@@ -272,8 +272,10 @@ describe('Create new advert', () => {
             .attach('photo', image)
             .set('authorization', `Bearer ${token}`)
             .end((err, res) => {
+                const photo = res.body.data;
                 res.should.have.status(201);
                 res.body.should.be.a('object');
+                photo.should.have.property('imageUrl');
                 res.body.message.should.equal('successfully created an advert');
                 if (err) return done();
                 done();
