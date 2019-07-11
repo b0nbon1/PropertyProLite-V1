@@ -4,15 +4,17 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/403106bcf8900e25d7a7/maintainability)](https://codeclimate.com/github/b0nbon1/PropertyProLite-V1/maintainability) [![Build Status](https://travis-ci.org/b0nbon1/PropertyProLite-V1.svg?branch=develop)](https://travis-ci.org/b0nbon1/PropertyProLite-V1) [![Coverage Status](https://coveralls.io/repos/github/b0nbon1/PropertyProLite-V1/badge.svg?branch=develop)](https://coveralls.io/github/b0nbon1/PropertyProLite-V1?branch=develop)
 
 Property Pro Lite is a platform where people can create and/or search properties for sale or rent.
+
 ## Table Contents
 
  1. [Getting Started](#Getting-Started)
- 2. [Prerequisites](#Prerequisites-a-name%22prerequisites%22)
+ 2. [Prerequisites](#Prerequisites)
  3. [Installing the Api](#Installing-api)
- 4. [Running Tests](#Running-the-tests-a-name%22getting%22a)
+ 4. [Running Tests](#Running-the-tests)
  5. [API Endpoints](#Api-Endpoints)
  6. [Pivotal Tracker Board](#PIVOTAL-TRACKER-BOARD)
  7. [Heroku Link](#HEROKU-LINK)
+ 8. [Contributions](#Contributions)
 
 ## Getting Started
 
@@ -28,7 +30,7 @@ before you install the software make sure you have the following already install
 
 - nodejs get it [here](https://nodejs.org)
 
-### Installing api
+## Installing api
 
 A step by step series of examples that tell you how to get a development env running
 
@@ -50,7 +52,7 @@ To install all the necessary dependencies packages on your local computer
 npm start
 ```
 
-## Running the tests <a name="getting"></a>
+## Running the tests
 
 TO run the test for the api
 
