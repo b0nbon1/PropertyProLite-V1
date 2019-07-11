@@ -3,8 +3,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import '@babel/polyfill';
-import users from './src/routes/UserRoutes';
-import property from './src/routes/PropertyRoutes';
+import router from './src/routes';
 
 const app = express();
 
@@ -14,9 +13,6 @@ app.use(bodyParser.urlencoded({
     extended: true,
 }));
 
-const prefix = '/api/v1';
-
-app.use(prefix, users);
-app.use(prefix, property);
+router(app);
 
 export default app;
