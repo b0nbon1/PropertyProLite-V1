@@ -5,6 +5,8 @@
 
 Property Pro Lite is a platform where people can create and/or search properties for sale or rent.
 
+![](https://cdn.lennar.net/images/elevations/26366_eleC_lg.jpg?w=1200&h=650&as=1&d=20170814T093828)
+
 ## Table Contents
 
  1. [Getting Started](#Getting-Started)
