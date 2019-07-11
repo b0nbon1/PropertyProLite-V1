@@ -4,6 +4,15 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/403106bcf8900e25d7a7/maintainability)](https://codeclimate.com/github/b0nbon1/PropertyProLite-V1/maintainability) [![Build Status](https://travis-ci.org/b0nbon1/PropertyProLite-V1.svg?branch=develop)](https://travis-ci.org/b0nbon1/PropertyProLite-V1) [![Coverage Status](https://coveralls.io/repos/github/b0nbon1/PropertyProLite-V1/badge.svg?branch=develop)](https://coveralls.io/github/b0nbon1/PropertyProLite-V1?branch=develop)
 
 Property Pro Lite is a platform where people can create and/or search properties for sale or rent.
+## Table Contents
+
+ 1. [Getting Started](#Getting-Started)
+ 2. [Prerequisites](#Prerequisites-a-name%22prerequisites%22)
+ 3. [Installing the Api](#Installing-api)
+ 4. [Running Tests](#Running-the-tests-a-name%22getting%22a)
+ 5. [API Endpoints](#Api-Endpoints)
+ 6. [Pivotal Tracker Board](#PIVOTAL-TRACKER-BOARD)
+ 7. [Heroku Link](#HEROKU-LINK)
 
 ## Getting Started
 
@@ -13,7 +22,7 @@ By running the following command Property-Pro-Lite-Api will be automatically dow
 git clone https://github.com/b0nbon1/PropertyProLite-V1
 ```
 
-### Prerequisites
+## Prerequisites
 
 before you install the software make sure you have the following already installed on your machine
 
@@ -41,7 +50,7 @@ To install all the necessary dependencies packages on your local computer
 npm start
 ```
 
-## Running the tests
+## Running the tests <a name="getting"></a>
 
 TO run the test for the api
 
@@ -74,9 +83,8 @@ Click here to view: [PIVOTAL TRACKER STORIES](https://www.pivotaltracker.com/n/p
 
 The api is hosted on heroku: [Heroku](https://propertyprolitev1.herokuapp.com/)
 
-## Author by
+## Contributions
 
 [Bonvic Bundi](https://www.bonbo.io.ke)
 
-[![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](https://twitter.com/Bonvic7)
-[![GitHub followers](https://img.shields.io/github/followers/b0nbon1.svg?style=social&label=Follow&maxAge=2592000)](https://github.com/b0nbon1?tab=followers)
+[![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](https://twitter.com/Bonvic7) [![GitHub followers](https://img.shields.io/github/followers/b0nbon1.svg?style=social&label=Follow&maxAge=2592000)](https://github.com/b0nbon1?tab=followers)
