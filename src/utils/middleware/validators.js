@@ -54,7 +54,6 @@ export default class Validations {
             if (!price || !state || !city || !address || !type) {
                 return Res.handleError(400, 'Please fill all the fields', res);
             }
-            if (req.files == null) return Res.handleError(400, 'Please Upload an image', res);
             if (await Regex.floatCheck(price)) return Res.handleError(400, 'Price should be a number', res);
             if (await Regex.nameCheck(state)) return Res.handleError(400, 'Please enter valid State', res);
             if (await Regex.nameCheck(city)) return Res.handleError(400, 'Please enter valid city', res);
