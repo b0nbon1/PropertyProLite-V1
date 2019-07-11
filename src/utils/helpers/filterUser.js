@@ -1,11 +1,7 @@
-const filterPass = (user) => {
-    const password = ['password'];
-
-    Object.keys(user)
-        .filter(key => password.includes(key))
-        .forEach(key => delete user[key]);
-
-    return user;
+const filterPass = (raw) => {
+    // eslint-disable-next-line no-unused-vars
+    const { password, ...data } = raw;
+    return data;
 };
 
 export default filterPass;

@@ -1,6 +1,6 @@
 import cloudinary from 'cloudinary';
 import dotenv from 'dotenv';
-import image from '../../../database/images';
+import image from '../../database/images';
 
 dotenv.config();
 
@@ -10,7 +10,7 @@ cloudinary.config({
     api_secret: process.env.API_SECRET,
 });
 
-const save = async (db, obj) => {
+const save = (db, obj) => {
     db.push(obj);
 };
 
