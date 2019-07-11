@@ -178,7 +178,7 @@ describe('Create new advert', () => {
             .end((err, res) => {
                 res.should.have.status(400);
                 res.body.should.be.a('object');
-                res.body.message.should.equal('Price should be a number');
+                res.body.message.should.equal('Price should be a positive float');
                 if (err) return done();
                 done();
             });
