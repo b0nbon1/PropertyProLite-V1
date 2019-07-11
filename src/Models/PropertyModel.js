@@ -1,12 +1,12 @@
-import db from '../../database/Property';
-import dbReport from '../../database/report';
+import db from '../database/Property';
+import dbReport from '../database/report';
 import Model from './Model';
 import clean from '../utils/helpers/checkEmpty';
 
 export default class Property extends Model {
     async add() {
         const property = this.payload;
-        await this.save(db, property);
+        this.save(db, property);
     }
 
     async update() {
@@ -41,10 +41,20 @@ export default class Property extends Model {
 
     async getType() {
         const advert = db.filter(o => o.type === this.payload);
+        this.result = advert;
+    }
+
+    static checkType(obj) {
+        const advert = db.filter(ob => ob.type === obj);
         if (!advert.length) {
             return false;
         }
-        this.result = advert;
+        return true;
+    }
+
+    static async exists(id) {
+        const advert = db.find(o => o.id === id);
+        if (!advert) return false;
         return true;
     }
 

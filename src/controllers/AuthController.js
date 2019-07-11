@@ -1,9 +1,10 @@
-import bcrypt from 'bcrypt';
-import userId from '../../database/Users';
+import userId from '../database/Users';
 import Uid from '../utils/helpers/Ids';
 import User from '../Models/UsersModel';
 import Res from '../utils/helpers/responses';
 import Token from '../utils/helpers/jwt';
+import Encrypt from '../utils/helpers/encrypt';
+import filterData from '../utils/helpers/filterUser';
 
 const isAdmin = false;
 
@@ -18,7 +19,7 @@ export default class Authentication {
                 phoneNumber,
                 password,
             } = req.body;
-            const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
+            const hashedPassword = await Encrypt.hash(password);
             const id = Uid(userId);
             const newUser = new User({
                 id,
@@ -31,8 +32,9 @@ export default class Authentication {
                 isAdmin,
             });
             const token = await Token.newToken({ email, id });
-            if (!await newUser.register()) return Res.handleError(409, 'email account exists', res);
-            return Res.handleAuthSuccess(201, 'successfully created account', token, newUser.result, res);
+            await newUser.register();
+            const data = await filterData(newUser.result);
+            return Res.handleAuthSuccess(201, 'successfully created account', token, data, res);
         } catch (err) {
             return Res.handleError(500, err.toString(), res);
         }
@@ -45,18 +47,15 @@ export default class Authentication {
                 password,
             } = req.body;
             const checkUser = new User(email);
-            if (await checkUser.login()) {
-                // console.log(checkUser.result);
-                if (bcrypt.compareSync(password, checkUser.result.password)) {
-                    // eslint-disable-next-line no-shadow
-                    const { id, email } = checkUser.result;
-                    const token = await Token.newToken({ email, id });
-                    const data = checkUser.result;
-                    return Res.handleAuthSuccess(200, 'successfully logged in', token, data, res);
-                }
-                return Res.handleError(401, 'wrong password!', res);
+            await checkUser.login();
+            if (await Encrypt.check(password, checkUser.result.password)) {
+                // eslint-disable-next-line no-shadow
+                const { id, email } = checkUser.result;
+                const token = await Token.newToken({ email, id });
+                const data = await filterData(checkUser.result);
+                return Res.handleAuthSuccess(200, 'successfully logged in', token, data, res);
             }
-            return Res.handleError(404, 'User is not registered. Sign up to create account', res);
+            return Res.handleError(401, 'wrong password!', res);
         } catch (err) {
             return Res.handleError(500, err.toString(), res);
         }

@@ -31,7 +31,7 @@ export default class Regex {
     }
 
     static floatCheck(float) {
-        re = /^[+-]?\d+(\.\d+)?$/;
+        re = /^(?:[1-9]\d*|0)?(?:\.\d+)?$/;
         if (!re.test(float)) return true;
         return false;
     }

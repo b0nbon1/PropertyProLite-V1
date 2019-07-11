@@ -1,5 +1,5 @@
-import db from '../../database/Users';
-import ad from '../../database/Property';
+import db from '../database/Users';
+import ad from '../database/Property';
 import Model from './Model';
 import filtData from '../utils/helpers/filterUser';
 
@@ -8,7 +8,7 @@ export default class User extends Model {
         const user = this.payload;
         const obj = await User.getUser(user.email);
         if (!obj) {
-            await this.save(db, user);
+            this.save(db, user);
             return true;
         }
         return false;
@@ -17,11 +17,7 @@ export default class User extends Model {
     async login() {
         const user = this.payload;
         const obj = await User.getUser(user);
-        if (!obj) {
-            return false;
-        }
         this.result = obj;
-        return true;
     }
 
     static async getUser(email) {
