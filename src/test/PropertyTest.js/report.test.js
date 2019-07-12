@@ -15,7 +15,7 @@ before('generate token', () => {
 describe('Post fraud report property', () => {
     it('should create new report successfully', (done) => {
         chai.request(app)
-            .post('/api/v1/property/2/flag')
+            .post('/api/v1/property/1/flag')
             .send({
                 reason: 'price',
                 description: 'The price is to high for this property',
@@ -31,7 +31,7 @@ describe('Post fraud report property', () => {
     });
     it('should have a reason', (done) => {
         chai.request(app)
-            .post('/api/v1/property/2/flag')
+            .post('/api/v1/property/1/flag')
             .send({
                 reason: '',
                 description: 'The price is to high for this property',
@@ -47,7 +47,7 @@ describe('Post fraud report property', () => {
     });
     it('should have a description', (done) => {
         chai.request(app)
-            .post('/api/v1/property/2/flag')
+            .post('/api/v1/property/1/flag')
             .send({
                 reason: 'price',
                 description: '',
@@ -79,7 +79,7 @@ describe('Post fraud report property', () => {
     });
     it('user should be logged in', (done) => {
         chai.request(app)
-            .post('/api/v1/property/2/flag')
+            .post('/api/v1/property/1/flag')
             .send({
                 reason: 'price',
                 description: 'The price is to high for this property',

@@ -34,7 +34,7 @@ before('generate new property', (done) => {
 describe('update property as sold', () => {
     it('should update specific advert successfully as sold', (done) => {
         chai.request(app)
-            .patch('/api/v1/property/2/sold')
+            .patch('/api/v1/property/1/sold')
             .set('authorization', `Bearer ${toke}`)
             .end((err, res) => {
                 res.should.have.status(200);
@@ -46,7 +46,7 @@ describe('update property as sold', () => {
     });
     it('should update his/her own posts', (done) => {
         chai.request(app)
-            .patch('/api/v1/property/2/sold')
+            .patch('/api/v1/property/1/sold')
             .set('authorization', `Bearer ${wrongUser}`)
             .end((err, res) => {
                 res.should.have.status(406);
@@ -58,7 +58,7 @@ describe('update property as sold', () => {
     });
     it('should check if toke available', (done) => {
         chai.request(app)
-            .patch('/api/v1/property/2/sold')
+            .patch('/api/v1/property/1/sold')
             .end((err, res) => {
                 res.should.have.status(403);
                 res.body.should.be.a('object');

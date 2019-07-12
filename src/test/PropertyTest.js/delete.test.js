@@ -58,7 +58,7 @@ describe('Delete property', () => {
     });
     it('confirm the advert is deleted', (done) => {
         chai.request(app)
-            .get('/api/v1/property/14')
+            .get('/api/v1/property/1')
             .end((err, res) => {
                 res.should.have.status(404);
                 res.body.should.be.a('object');

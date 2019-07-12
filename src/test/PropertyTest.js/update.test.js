@@ -18,7 +18,7 @@ before('generate token', () => {
 describe('Update advert', () => {
     it('should update advert successfully', (done) => {
         chai.request(app)
-            .patch('/api/v1/property/2')
+            .patch('/api/v1/property/1')
             .send({
                 price: 600,
                 state: 'Rwanda',
@@ -37,7 +37,7 @@ describe('Update advert', () => {
     });
     it('should update his/her own posts', (done) => {
         chai.request(app)
-            .patch('/api/v1/property/2')
+            .patch('/api/v1/property/1')
             .send({
                 price: 600,
                 state: 'Rwanda',
@@ -56,7 +56,7 @@ describe('Update advert', () => {
     });
     it('should property should have Valid price', (done) => {
         chai.request(app)
-            .patch('/api/v1/property/2')
+            .patch('/api/v1/property/1')
             .send({
                 price: 't#',
             })
@@ -71,7 +71,7 @@ describe('Update advert', () => {
     });
     it('should property should have a valid State', (done) => {
         chai.request(app)
-            .patch('/api/v1/property/2')
+            .patch('/api/v1/property/1')
             .send({
                 state: 'K@',
             })
@@ -86,7 +86,7 @@ describe('Update advert', () => {
     });
     it('should property should have a valid city name', (done) => {
         chai.request(app)
-            .patch('/api/v1/property/2')
+            .patch('/api/v1/property/1')
             .send({
                 city: 'N@$',
             })
@@ -101,7 +101,7 @@ describe('Update advert', () => {
     });
     it('should property should have a valid type that exists', (done) => {
         chai.request(app)
-            .patch('/api/v1/property/2')
+            .patch('/api/v1/property/1')
             .send({
                 type: 'one%#%6',
             })
@@ -116,7 +116,7 @@ describe('Update advert', () => {
     });
     it('should property should have a valid address', (done) => {
         chai.request(app)
-            .patch('/api/v1/property/2')
+            .patch('/api/v1/property/1')
             .send({
                 address: '5th&%$#',
             })

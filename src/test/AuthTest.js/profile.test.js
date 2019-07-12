@@ -20,7 +20,7 @@ describe('Profile', () => {
             })
             .end((err, res) => {
                 // eslint-disable-next-line prefer-destructuring
-                token = res.body.token;
+                token = res.body.data;
                 if (err) return done();
                 done();
             });

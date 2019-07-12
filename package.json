@@ -14,8 +14,6 @@
     "exclude": [
       "**/test/**",
       "**/database/**",
-      "**/Model.js",
-      "**/helpers/**",
       "build"
     ]
   },
