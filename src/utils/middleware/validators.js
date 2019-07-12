@@ -85,11 +85,17 @@ export default class Validations {
         }
     }
 
+    static async getAll(req, res, next) {
+        const filter = 'status';
+        if (!await Advert.checkType('available', filter)) return Res.handleError(404, 'No properties available', res);
+        next();
+    }
+
     static async type(req, res, next) {
         try {
             const { type } = req.query;
             if (!type) return Res.handleError(400, 'Please ensure there is query type made', res);
-            if (!await Advert.checkType(type)) return Res.handleError(404, 'adverts with this type does not exists', res);
+            if (!await Advert.checkType(type, 'type')) return Res.handleError(404, 'adverts with this type does not exists', res);
             next();
         } catch (err) {
             return Res.handleError(500, err.toString(), res);

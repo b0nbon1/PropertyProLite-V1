@@ -23,7 +23,8 @@ export default class Property extends Model {
     }
 
     static async findAll() {
-        return db;
+        const advert = db.filter(ob => ob.status === 'available');
+        return advert;
     }
 
     async findOne() {
@@ -44,8 +45,8 @@ export default class Property extends Model {
         this.result = advert;
     }
 
-    static checkType(obj) {
-        const advert = db.filter(ob => ob.type === obj);
+    static checkType(obj, type) {
+        const advert = db.filter(ob => ob[type] === obj);
         if (!advert.length) {
             return false;
         }

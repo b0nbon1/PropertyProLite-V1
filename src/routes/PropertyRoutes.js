@@ -10,7 +10,7 @@ route.use(fileupload({ useTempFiles: true }));
 route.post('/property', Validations.property, Token.userToken, Property.Post);
 route.patch('/property/:property_id', Token.userToken,
     Validations.update, Validations.checkId, Validations.owner, Property.Update);
-route.get('/property', Property.getAll);
+route.get('/property', Validations.getAll, Property.getAll);
 route.get('/property/:property_id', Validations.checkId, Property.getOne);
 route.patch('/property/:property_id/sold', Token.userToken, Validations.checkId, Validations.owner, Property.markSold);
 route.delete('/property/:property_id', Token.userToken, Validations.checkId, Validations.owner, Property.delProperty);
