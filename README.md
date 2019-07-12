@@ -5,7 +5,7 @@
 
 Property Pro Lite is a platform where people can create and/or search properties for sale or rent.
 
-![](https://cdn.lennar.net/images/elevations/26366_eleC_lg.jpg?w=1200&h=650&as=1&d=20170814T093828)
+![Property](https://cdn.lennar.net/images/elevations/26366_eleC_lg.jpg?w=1200&h=650&as=1&d=20170814T093828)
 
 ## Table Contents
 
@@ -16,7 +16,8 @@ Property Pro Lite is a platform where people can create and/or search properties
  5. [API Endpoints](#Api-Endpoints)
  6. [Pivotal Tracker Board](#PIVOTAL-TRACKER-BOARD)
  7. [Heroku Link](#HEROKU-LINK)
- 8. [Contributions](#Contributions)
+ 8. [Read the Docs](#Rad-the-Docs)
+ 9. [Contributions](#Contributions)
 
 ## Getting Started
 
@@ -86,6 +87,10 @@ Click here to view: [PIVOTAL TRACKER STORIES](https://www.pivotaltracker.com/n/p
 ## HEROKU LINK
 
 The api is hosted on heroku: [Heroku](https://propertyprolitev1.herokuapp.com/)
+
+## Read the Docs
+
+The documentation Link for this api is [Property Pro Lite](propertyprolitev1.herokuapp.com/api/v1/docs)
 
 ## Contributions
 
