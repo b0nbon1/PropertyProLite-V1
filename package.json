@@ -14,8 +14,6 @@
     "exclude": [
       "**/test/**",
       "**/database/**",
-      "**/Model.js",
-      "**/helpers/**",
       "build"
     ]
   },
@@ -41,7 +39,8 @@
     "express": "^4.17.1",
     "express-fileupload": "^1.1.5",
     "jsonwebtoken": "^8.5.1",
-    "moment": "^2.24.0"
+    "moment": "^2.24.0",
+    "swagger-ui-express": "^4.0.7"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",

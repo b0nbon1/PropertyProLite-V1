@@ -1,6 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../../app';
+import db from '../../database/Property';
 
 chai.use(chaiHttp);
 chai.should();
@@ -71,6 +72,22 @@ describe('Get specific property', () => {
                 res.should.have.status(400);
                 res.body.should.be.a('object');
                 res.body.message.should.equal('Please ensure there is query type made');
+                if (err) return done();
+                done();
+            });
+    });
+});
+describe('No Properties', () => {
+    beforeEach('clear db', () => {
+        db.splice(0, db.length);
+    });
+    it('should test if no properties', (done) => {
+        chai.request(app)
+            .get('/api/v1/property')
+            .end((err, res) => {
+                res.should.have.status(404);
+                res.should.be.a('object');
+                res.body.message.should.equal('No properties available');
                 if (err) return done();
                 done();
             });

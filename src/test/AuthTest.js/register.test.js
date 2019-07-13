@@ -19,7 +19,7 @@ describe('Register', () => {
             .end((err, res) => {
                 res.should.have.status(201);
                 res.body.should.be.a('object');
-                res.body.should.have.property('token');
+                res.body.should.have.property('data');
                 res.body.message.should.equal('successfully created account');
                 if (err) return done();
                 done();
