@@ -4,6 +4,7 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../../app';
 import jwt from '../../utils/helpers/jwt';
+import data from '../Mockdata/report';
 
 let token;
 
@@ -16,10 +17,7 @@ describe('Post fraud report property', () => {
     it('should create new report successfully', (done) => {
         chai.request(app)
             .post('/api/v1/property/1/flag')
-            .send({
-                reason: 'price',
-                description: 'The price is to high for this property',
-            })
+            .send(data.report1)
             .set('authorization', `Bearer ${token}`)
             .end((err, res) => {
                 res.should.have.status(201);
@@ -32,10 +30,7 @@ describe('Post fraud report property', () => {
     it('should have a reason', (done) => {
         chai.request(app)
             .post('/api/v1/property/1/flag')
-            .send({
-                reason: '',
-                description: 'The price is to high for this property',
-            })
+            .send(data.report2)
             .set('authorization', `Bearer ${token}`)
             .end((err, res) => {
                 res.should.have.status(400);
@@ -48,10 +43,7 @@ describe('Post fraud report property', () => {
     it('should have a description', (done) => {
         chai.request(app)
             .post('/api/v1/property/1/flag')
-            .send({
-                reason: 'price',
-                description: '',
-            })
+            .send(data.report3)
             .set('authorization', `Bearer ${token}`)
             .end((err, res) => {
                 res.should.have.status(400);
@@ -64,10 +56,7 @@ describe('Post fraud report property', () => {
     it('should find the property with the id', (done) => {
         chai.request(app)
             .post('/api/v1/property/12/flag')
-            .send({
-                reason: 'price',
-                description: 'The price is to high for this property',
-            })
+            .send(data.report4)
             .set('authorization', `Bearer ${token}`)
             .end((err, res) => {
                 res.should.have.status(404);
@@ -80,10 +69,7 @@ describe('Post fraud report property', () => {
     it('user should be logged in', (done) => {
         chai.request(app)
             .post('/api/v1/property/1/flag')
-            .send({
-                reason: 'price',
-                description: 'The price is to high for this property',
-            })
+            .send(data.report5)
             .end((err, res) => {
                 res.should.have.status(403);
                 res.body.should.be.a('object');

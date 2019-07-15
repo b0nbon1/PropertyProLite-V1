@@ -1,6 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../../app';
+import data from '../Mockdata/user';
 
 let token;
 
@@ -10,14 +11,7 @@ describe('Profile', () => {
     before('generate JWT', (done) => {
         chai.request(app)
             .post('/api/v1/auth/signup')
-            .send({
-                firstname: 'bonbon',
-                lastname: 'vic',
-                email: 'boybuny@test.com',
-                phoneNumber: '+254742087558',
-                address: 'kenya',
-                password: 'f5e4xhr43dh4t',
-            })
+            .send(data.user14)
             .end((err, res) => {
                 // eslint-disable-next-line prefer-destructuring
                 token = res.body.data;

@@ -4,6 +4,7 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../../app';
 import jwt from '../../utils/helpers/jwt';
+import data from '../Mockdata/property';
 
 let toke, wrongUser;
 
@@ -18,13 +19,7 @@ before('generate token', () => {
 before('generate new property', (done) => {
     chai.request(app)
         .post('/api/v1/property')
-        .send({
-            price: 400,
-            state: 'Kenya',
-            city: 'Nairobi',
-            type: 'apartment',
-            address: 'kenya, 5th street',
-        })
+        .send(data.property1)
         .set('authorization', `Bearer ${toke}`)
         .end((err) => {
             if (err) return done();
