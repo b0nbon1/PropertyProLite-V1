@@ -4,10 +4,10 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../../app';
 import jwt from '../../utils/helpers/jwt';
+import data from '../Mockdata/property';
 
 let token;
 const wrongToken = '654gyujy5ygre';
-const image = './src/Mockdata/Screenshot_from_2019-07-08_13-30-34.png';
 
 chai.use(chaiHttp);
 chai.should();
@@ -18,13 +18,7 @@ describe('Create new advert', () => {
     it('should check if token available', (done) => {
         chai.request(app)
             .post('/api/v1/property')
-            .send({
-                price: 400,
-                state: 'Kenya',
-                city: 'Nairobi',
-                type: 'one bedroom',
-                address: 'kenya, 5th street',
-            })
+            .send(data.property1)
             .end((err, res) => {
                 res.should.have.status(403);
                 res.body.should.be.a('object');
@@ -36,13 +30,7 @@ describe('Create new advert', () => {
     it('should check if token is valid', (done) => {
         chai.request(app)
             .post('/api/v1/property')
-            .send({
-                price: 400,
-                state: 'Kenya',
-                city: 'Nairobi',
-                type: 'one bedroom',
-                address: 'kenya, 5th street',
-            })
+            .send(data.property1)
             .set('authorization', `Bearer ${wrongToken}`)
             .end((err, res) => {
                 res.should.have.status(403);
@@ -53,13 +41,7 @@ describe('Create new advert', () => {
     it('should create new ad successfully', (done) => {
         chai.request(app)
             .post('/api/v1/property')
-            .send({
-                price: 400,
-                state: 'Kenya',
-                city: 'Nairobi',
-                type: 'apartment',
-                address: 'kenya, 5th street',
-            })
+            .send(data.property1)
             .set('authorization', `Bearer ${token}`)
             .end((err, res) => {
                 res.should.have.status(201);
@@ -72,13 +54,7 @@ describe('Create new advert', () => {
     it('should have a price', (done) => {
         chai.request(app)
             .post('/api/v1/property')
-            .send({
-                price: '',
-                state: 'Kenya',
-                city: 'Nairobi',
-                type: 'one bedroom',
-                address: 'kenya, 5th street',
-            })
+            .send(data.property2)
             .set('authorization', `Bearer ${token}`)
             .end((err, res) => {
                 res.should.have.status(400);
@@ -91,13 +67,7 @@ describe('Create new advert', () => {
     it('should contain state where the property is', (done) => {
         chai.request(app)
             .post('/api/v1/property')
-            .send({
-                price: 400,
-                state: '',
-                city: 'Nairobi',
-                type: 'one bedroom',
-                address: 'kenya, 5th street',
-            })
+            .send(data.property3)
             .set('authorization', `Bearer ${token}`)
             .end((err, res) => {
                 res.should.have.status(400);
@@ -110,13 +80,7 @@ describe('Create new advert', () => {
     it('should contain a city', (done) => {
         chai.request(app)
             .post('/api/v1/property')
-            .send({
-                price: 400,
-                state: 'Kenya',
-                city: '',
-                type: 'one bedroom',
-                address: 'kenya, 5th street',
-            })
+            .send(data.property4)
             .set('authorization', `Bearer ${token}`)
             .end((err, res) => {
                 res.should.have.status(400);
@@ -129,13 +93,7 @@ describe('Create new advert', () => {
     it('should contain type of property', (done) => {
         chai.request(app)
             .post('/api/v1/property')
-            .send({
-                price: 400,
-                state: 'Kenya',
-                city: 'Nairobi',
-                type: '',
-                address: 'kenya, 5th street',
-            })
+            .send(data.property5)
             .set('authorization', `Bearer ${token}`)
             .end((err, res) => {
                 res.should.have.status(400);
@@ -148,13 +106,7 @@ describe('Create new advert', () => {
     it('should property should have an address', (done) => {
         chai.request(app)
             .post('/api/v1/property')
-            .send({
-                price: 400,
-                state: 'Kenya',
-                city: 'Nairobi',
-                type: 'one bedroom',
-                address: '',
-            })
+            .send(data.property6)
             .set('authorization', `Bearer ${token}`)
             .end((err, res) => {
                 res.should.have.status(400);
@@ -167,13 +119,7 @@ describe('Create new advert', () => {
     it('should property should have Valid price', (done) => {
         chai.request(app)
             .post('/api/v1/property')
-            .send({
-                price: 't#',
-                state: 'Kenya',
-                city: 'Nairobi',
-                type: 'one bedroom',
-                address: '5th street down',
-            })
+            .send(data.property7)
             .set('authorization', `Bearer ${token}`)
             .end((err, res) => {
                 res.should.have.status(400);
@@ -186,13 +132,7 @@ describe('Create new advert', () => {
     it('should property should have a valid State', (done) => {
         chai.request(app)
             .post('/api/v1/property')
-            .send({
-                price: 400,
-                state: 'K@',
-                city: 'Nairobi',
-                type: 'one bedroom',
-                address: '5th street',
-            })
+            .send(data.property8)
             .set('authorization', `Bearer ${token}`)
             .end((err, res) => {
                 res.should.have.status(400);
@@ -205,13 +145,7 @@ describe('Create new advert', () => {
     it('should property should have a valid city name', (done) => {
         chai.request(app)
             .post('/api/v1/property')
-            .send({
-                price: 400,
-                state: 'Kenya',
-                city: 'N@$',
-                type: 'one bedroom',
-                address: '5th street',
-            })
+            .send(data.property9)
             .set('authorization', `Bearer ${token}`)
             .end((err, res) => {
                 res.should.have.status(400);
@@ -224,13 +158,7 @@ describe('Create new advert', () => {
     it('should property should have a valid type that exists', (done) => {
         chai.request(app)
             .post('/api/v1/property')
-            .send({
-                price: 400,
-                state: 'Kenya',
-                city: 'Nairobi',
-                type: 'one%#%6',
-                address: '5th street',
-            })
+            .send(data.property10)
             .set('authorization', `Bearer ${token}`)
             .end((err, res) => {
                 res.should.have.status(400);
@@ -243,13 +171,7 @@ describe('Create new advert', () => {
     it('should property should have a valid address', (done) => {
         chai.request(app)
             .post('/api/v1/property')
-            .send({
-                price: 400,
-                state: 'Kenya',
-                city: 'Nairobi',
-                type: 'one bedroom',
-                address: '5th&%$#',
-            })
+            .send(data.property11)
             .set('authorization', `Bearer ${token}`)
             .end((err, res) => {
                 res.should.have.status(400);
@@ -262,14 +184,8 @@ describe('Create new advert', () => {
     it('should successfully upload image from locally', (done) => {
         chai.request(app)
             .post('/api/v1/property')
-            .field({
-                price: 400,
-                state: 'Kenya',
-                city: 'Nairobi',
-                type: 'apartment',
-                address: 'kenya, 5th street',
-            })
-            .attach('photo', image)
+            .field(data.property13)
+            .attach('photo', data.image)
             .set('authorization', `Bearer ${token}`)
             .end((err, res) => {
                 const photo = res.body.data;

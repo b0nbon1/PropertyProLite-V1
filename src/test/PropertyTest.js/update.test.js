@@ -4,6 +4,7 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../../app';
 import jwt from '../../utils/helpers/jwt';
+import data from '../Mockdata/property';
 
 let token, wrongUser;
 
@@ -19,13 +20,7 @@ describe('Update advert', () => {
     it('should update advert successfully', (done) => {
         chai.request(app)
             .patch('/api/v1/property/1')
-            .send({
-                price: 600,
-                state: 'Rwanda',
-                city: 'Kigali',
-                type: 'two bedroom',
-                address: '5th street',
-            })
+            .send(data.property1)
             .set('authorization', `Bearer ${token}`)
             .end((err, res) => {
                 res.should.have.status(200);
@@ -38,13 +33,7 @@ describe('Update advert', () => {
     it('should update his/her own posts', (done) => {
         chai.request(app)
             .patch('/api/v1/property/1')
-            .send({
-                price: 600,
-                state: 'Rwanda',
-                city: 'Kigali',
-                type: 'two bedroom',
-                address: '5th street',
-            })
+            .send(data.property1)
             .set('authorization', `Bearer ${wrongUser}`)
             .end((err, res) => {
                 res.should.have.status(406);
@@ -57,9 +46,7 @@ describe('Update advert', () => {
     it('should property should have Valid price', (done) => {
         chai.request(app)
             .patch('/api/v1/property/1')
-            .send({
-                price: 't#',
-            })
+            .send(data.property12)
             .set('authorization', `Bearer ${token}`)
             .end((err, res) => {
                 res.should.have.status(400);
@@ -72,9 +59,7 @@ describe('Update advert', () => {
     it('should property should have a valid State', (done) => {
         chai.request(app)
             .patch('/api/v1/property/1')
-            .send({
-                state: 'K@',
-            })
+            .send(data.property14)
             .set('authorization', `Bearer ${token}`)
             .end((err, res) => {
                 res.should.have.status(400);
@@ -87,9 +72,7 @@ describe('Update advert', () => {
     it('should property should have a valid city name', (done) => {
         chai.request(app)
             .patch('/api/v1/property/1')
-            .send({
-                city: 'N@$',
-            })
+            .send(data.property15)
             .set('authorization', `Bearer ${token}`)
             .end((err, res) => {
                 res.should.have.status(400);
@@ -102,9 +85,7 @@ describe('Update advert', () => {
     it('should property should have a valid type that exists', (done) => {
         chai.request(app)
             .patch('/api/v1/property/1')
-            .send({
-                type: 'one%#%6',
-            })
+            .send(data.property16)
             .set('authorization', `Bearer ${token}`)
             .end((err, res) => {
                 res.should.have.status(400);
@@ -117,9 +98,7 @@ describe('Update advert', () => {
     it('should property should have a valid address', (done) => {
         chai.request(app)
             .patch('/api/v1/property/1')
-            .send({
-                address: '5th&%$#',
-            })
+            .send(data.property17)
             .set('authorization', `Bearer ${token}`)
             .end((err, res) => {
                 res.should.have.status(400);
