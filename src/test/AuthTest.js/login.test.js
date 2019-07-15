@@ -1,6 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../../app';
+import data from '../Mockdata/user';
 
 chai.use(chaiHttp);
 chai.should();
@@ -8,14 +9,7 @@ describe('Login', () => {
     before('generste new user', (done) => {
         chai.request(app)
             .post('/api/v1/auth/signup')
-            .send({
-                firstname: 'bonbon',
-                lastname: 'vic',
-                email: 'boybunny@test.com',
-                phoneNumber: '+254742087558',
-                address: 'kenya',
-                password: 'f5e4xhr43dh4t',
-            })
+            .send(data.user15)
             .end((err) => {
                 if (err) return done();
                 done();
@@ -24,10 +18,7 @@ describe('Login', () => {
     it('should Login user successfully', (done) => {
         chai.request(app)
             .post('/api/v1/auth/login')
-            .send({
-                email: 'boybunny@test.com',
-                password: 'f5e4xhr43dh4t',
-            })
+            .send(data.user16)
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('object');
@@ -40,10 +31,7 @@ describe('Login', () => {
     it('should check user email', (done) => {
         chai.request(app)
             .post('/api/v1/auth/login')
-            .send({
-                email: '',
-                password: 'ftdtfr5e4x4t',
-            })
+            .send(data.user17)
             .end((err, res) => {
                 res.should.have.status(400);
                 res.body.should.be.a('object');
@@ -55,10 +43,7 @@ describe('Login', () => {
     it('should check all fields present', (done) => {
         chai.request(app)
             .post('/api/v1/auth/login')
-            .send({
-                email: '',
-                password: '',
-            })
+            .send(data.user18)
             .end((err, res) => {
                 res.should.have.status(400);
                 res.body.should.be.a('object');
@@ -70,10 +55,7 @@ describe('Login', () => {
     it('should check user password', (done) => {
         chai.request(app)
             .post('/api/v1/auth/login')
-            .send({
-                email: 'bonhdfsd@test.com',
-                password: '',
-            })
+            .send(data.user19)
             .end((err, res) => {
                 res.should.have.status(400);
                 res.body.should.be.a('object');
@@ -85,10 +67,7 @@ describe('Login', () => {
     it('should confirm if user exists', (done) => {
         chai.request(app)
             .post('/api/v1/auth/login')
-            .send({
-                email: 'bonhdfsd@test.com',
-                password: 'ftdtfr5e4x4t',
-            })
+            .send(data.user20)
             .end((err, res) => {
                 res.should.have.status(404);
                 res.body.should.be.a('object');
@@ -100,10 +79,7 @@ describe('Login', () => {
     it('should check if the password matches', (done) => {
         chai.request(app)
             .post('/api/v1/auth/login')
-            .send({
-                email: 'boybunny@test.com',
-                password: 'ftdtfr5u6g',
-            })
+            .send(data.user21)
             .end((err, res) => {
                 res.should.have.status(401);
                 res.body.should.be.a('object');

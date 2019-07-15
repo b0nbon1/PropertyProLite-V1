@@ -1,6 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../../app';
+import data from '../Mockdata/user';
 
 chai.use(chaiHttp);
 chai.should();
@@ -8,14 +9,7 @@ describe('Register', () => {
     it('should register new user successfully', (done) => {
         chai.request(app)
             .post('/api/v1/auth/signup')
-            .send({
-                firstname: 'bonbon',
-                lastname: 'vic',
-                email: 'bonbo@test.com',
-                phoneNumber: '+254742087558',
-                address: 'kenya',
-                password: 'f5e4xhr43dh4t',
-            })
+            .send(data.user1)
             .end((err, res) => {
                 res.should.have.status(201);
                 res.body.should.be.a('object');
@@ -28,14 +22,7 @@ describe('Register', () => {
     it('should check user firstname', (done) => {
         chai.request(app)
             .post('/api/v1/auth/signup')
-            .send({
-                firstname: '',
-                lastname: 'vic',
-                email: 'bonbon@tes.com',
-                phoneNumber: '+254742087558',
-                address: 'kenya',
-                password: 'ftdtfr5e4xh4t',
-            })
+            .send(data.user2)
             .end((err, res) => {
                 res.should.have.status(400);
                 res.body.should.be.a('object');
@@ -47,14 +34,7 @@ describe('Register', () => {
     it('should check user lastname', (done) => {
         chai.request(app)
             .post('/api/v1/auth/signup')
-            .send({
-                firstname: 'bonbon',
-                lastname: '',
-                email: 'bonbon@tes.com',
-                phoneNumber: '+254742087558',
-                address: 'kenya',
-                password: 'ftdtfr5e4xhr4t',
-            })
+            .send(data.user3)
             .end((err, res) => {
                 res.should.have.status(400);
                 res.body.should.be.a('object');
@@ -66,14 +46,7 @@ describe('Register', () => {
     it('should check user email', (done) => {
         chai.request(app)
             .post('/api/v1/auth/signup')
-            .send({
-                firstname: 'bonbon',
-                lastname: 'vic',
-                email: '',
-                phoneNumber: '+254742087558',
-                address: 'kenya',
-                password: 'ftdtfr5e4xhr44t',
-            })
+            .send(data.user4)
             .end((err, res) => {
                 res.should.have.status(400);
                 res.body.should.be.a('object');
@@ -85,14 +58,7 @@ describe('Register', () => {
     it('should check user address', (done) => {
         chai.request(app)
             .post('/api/v1/auth/signup')
-            .send({
-                firstname: 'bonbon',
-                lastname: 'vic',
-                email: 'bonbon@tst.com',
-                phoneNumber: '+254742087558',
-                address: '',
-                password: 'ftdtfr5e4xhr4t',
-            })
+            .send(data.user5)
             .end((err, res) => {
                 res.should.have.status(400);
                 res.body.should.be.a('object');
@@ -104,14 +70,7 @@ describe('Register', () => {
     it('should check user phone Number', (done) => {
         chai.request(app)
             .post('/api/v1/auth/signup')
-            .send({
-                firstname: 'bonbon',
-                lastname: 'vic',
-                email: 'bonbon@tst.com',
-                phoneNumber: '',
-                address: 'nairobi, kenya',
-                password: 'ftdtfr5e4xhr4t',
-            })
+            .send(data.user6)
             .end((err, res) => {
                 res.should.have.status(400);
                 res.body.should.be.a('object');
@@ -123,14 +82,7 @@ describe('Register', () => {
     it('should check invalid user phone Number', (done) => {
         chai.request(app)
             .post('/api/v1/auth/signup')
-            .send({
-                firstname: 'bonbon',
-                lastname: 'vic',
-                email: 'bonbon@tst.com',
-                phoneNumber: '45478',
-                address: 'nairobi, kenya',
-                password: 'ftdtfr5e4xhr4t',
-            })
+            .send(data.user7)
             .end((err, res) => {
                 res.should.have.status(400);
                 res.body.should.be.a('object');
@@ -142,14 +94,7 @@ describe('Register', () => {
     it('should check user password', (done) => {
         chai.request(app)
             .post('/api/v1/auth/signup')
-            .send({
-                firstname: 'bonbon',
-                lastname: 'vic',
-                email: 'bobon@test.com',
-                phoneNumber: '+254742087558',
-                address: 'kenya',
-                password: '',
-            })
+            .send(data.user8)
             .end((err, res) => {
                 res.should.have.status(400);
                 res.body.should.be.a('object');
@@ -161,14 +106,7 @@ describe('Register', () => {
     it('should check user password if it has more than 6 characters', (done) => {
         chai.request(app)
             .post('/api/v1/auth/signup')
-            .send({
-                firstname: 'bonbon',
-                lastname: 'vic',
-                email: 'bonon@test.com',
-                phoneNumber: '+254742087558',
-                address: 'kenya',
-                password: 'ftdr',
-            })
+            .send(data.user9)
             .end((err, res) => {
                 res.should.have.status(400);
                 res.body.should.be.a('object');
@@ -180,14 +118,7 @@ describe('Register', () => {
     it('should check user valid first name', (done) => {
         chai.request(app)
             .post('/api/v1/auth/signup')
-            .send({
-                firstname: 'b&',
-                lastname: 'vic',
-                email: 'bonon@test.com',
-                phoneNumber: '+254742087558',
-                address: 'kenya',
-                password: 'ftdr',
-            })
+            .send(data.user10)
             .end((err, res) => {
                 res.should.have.status(400);
                 res.body.should.be.a('object');
@@ -199,14 +130,7 @@ describe('Register', () => {
     it('should check user valid last name', (done) => {
         chai.request(app)
             .post('/api/v1/auth/signup')
-            .send({
-                firstname: 'bonbon',
-                lastname: 'v%',
-                email: 'bonon@test.com',
-                phoneNumber: '+254742087558',
-                address: 'kenya',
-                password: 'ftdr',
-            })
+            .send(data.user11)
             .end((err, res) => {
                 res.should.have.status(400);
                 res.body.should.be.a('object');
@@ -218,14 +142,7 @@ describe('Register', () => {
     it('should check user valid email', (done) => {
         chai.request(app)
             .post('/api/v1/auth/signup')
-            .send({
-                firstname: 'bonbon',
-                lastname: 'vicker',
-                email: 'bcom',
-                phoneNumber: '+254742087558',
-                address: 'kenya',
-                password: 'ftdrgtytr5445',
-            })
+            .send(data.user12)
             .end((err, res) => {
                 res.should.have.status(400);
                 res.body.should.be.a('object');
@@ -237,14 +154,7 @@ describe('Register', () => {
     it('should check if user email exists', (done) => {
         chai.request(app)
             .post('/api/v1/auth/signup')
-            .send({
-                firstname: 'bonbon',
-                lastname: 'vic',
-                email: 'bonbo@test.com',
-                phoneNumber: '+254742087558',
-                address: 'kenya',
-                password: 'ftdtfr5e4x4t',
-            })
+            .send(data.user13)
             .end((err, res) => {
                 res.should.have.status(409);
                 res.body.should.be.a('object');
