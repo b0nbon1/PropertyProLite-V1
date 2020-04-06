@@ -15,8 +15,6 @@ Property Pro Lite is a platform where people can create and/or search properties
  4. [Running Tests](#Running-the-tests)
  5. [API Endpoints](#Api-Endpoints)
  6. [Pivotal Tracker Board](#PIVOTAL-TRACKER-BOARD)
- 7. [Heroku Link](#HEROKU-LINK)
- 8. [Read the Docs](#Rad-the-Docs)
  9. [Contributions](#Contributions)
 
 ## Getting Started
@@ -83,14 +81,6 @@ These are the endpoints for this api :
 ## PIVOTAL TRACKER BOARD
 
 Click here to view: [PIVOTAL TRACKER STORIES](https://www.pivotaltracker.com/n/projects/2353886)
-
-## HEROKU LINK
-
-The api is hosted on heroku: [Heroku](https://propertyprolitev1.herokuapp.com/)
-
-## Read the Docs
-
-The documentation Link for this api is [Property Pro Lite](propertyprolitev1.herokuapp.com/api/v1/docs)
 
 ## Contributions
 
